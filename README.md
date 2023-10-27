@@ -1,5 +1,5 @@
-# animal-puzzle
+# Kanji-quiz
 ## チーム：
-Team-F
+Team-C
 ## アプリ内容：
-｛内容を書いてください｝
+｛アプリ内容を書いてください｝
