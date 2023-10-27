@@ -1,2 +1,5 @@
-# PrototypeAPI22
-Android SDK API22 用プロジェクトのひな型
+# animal-puzzle
+## チーム：
+Team-F
+## アプリ内容：
+｛内容を書いてください｝
