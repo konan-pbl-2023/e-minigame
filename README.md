@@ -1,2 +1,5 @@
-# PrototypeAPI22
-Android SDK API22 用プロジェクトのひな型
+# e-minigame
+## チーム：
+Team-E
+## アプリ内容：
+｛内容を書いてください｝
