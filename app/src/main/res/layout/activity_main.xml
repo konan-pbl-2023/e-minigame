@@ -48,7 +48,9 @@
         app:layout_constraintVertical_bias="0.022" />
 
     <TextView
+
         android:id="@+id/hp"
+
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:scaleX="1.2"
@@ -265,7 +267,26 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.296" />
+
+    <Button
+        android:id="@+id/nextButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Button"
+        tools:layout_editor_absoluteX="160dp"
+        tools:layout_editor_absoluteY="526dp" />
+
+    <EditText
+        android:id="@+id/inputAnswer"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:inputType="text"
+        android:text="Name"
+        tools:layout_editor_absoluteX="88dp"
+        tools:layout_editor_absoluteY="459dp" />
 
     <TextView
         android:id="@+id/im"
