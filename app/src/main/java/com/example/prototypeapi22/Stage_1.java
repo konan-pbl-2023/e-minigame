@@ -98,6 +98,11 @@ public class Stage_1 extends AppCompatActivity {
     TextView combotext;
     int combo = 0;
     int tottatexty = 0; //tottatextの高さ調整用
+    int time = 0;
+    TextView timetext;
+    int xscore = 1; //scoreの倍率
+    TextView load;
+    int prevscore = 0;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -109,6 +114,11 @@ public class Stage_1 extends AppCompatActivity {
                 | View.SYSTEM_UI_FLAG_FULLSCREEN;
         decorView.setSystemUiVisibility(uiOptions);
         //https://developer.android.com/training/system-ui/navigation?hl=ja#java
+
+        Intent intent = getIntent();
+        hp = intent.getIntExtra("HPgive", 0);
+        score = intent.getIntExtra("Scoregive",0);
+        prevscore = score;
 
         ue = findViewById(R.id.ue); //水上の画像、仮置き
         ue.setX(-100);
@@ -282,6 +292,9 @@ public class Stage_1 extends AppCompatActivity {
         tottatext.setY(-1000);
         combotext = findViewById(R.id.combo);
 
+        timetext = findViewById(R.id.time);
+        load = findViewById(R.id.load);
+        load.setX(2000);
     } //onCreate終わり
 
     public void moveturiito(){ //gameがはじめられた時に始動
@@ -391,7 +404,7 @@ public class Stage_1 extends AppCompatActivity {
             }
         }
         turiito.setScaleY(i + longbar/4);
-        score = turiito.getWidth();
+
 
         //tst = (int)score * (int)i;
         //scoretext.setText("" + tst);
@@ -665,6 +678,7 @@ public class Stage_1 extends AppCompatActivity {
             tottatext.setTextColor(Color.rgb(229,56,39));
             tottatext.setText("赤い魚を\n釣り上げた!!");
             combo += 1;
+            score += 100 * xscore;
         }
         tst = fishx[3] - 2 * 84; //口の大体の座標
         tst2 = fishy[3];
@@ -684,6 +698,7 @@ public class Stage_1 extends AppCompatActivity {
             tottatext.setTextColor(Color.rgb(229,56,39));
             tottatext.setText("赤い魚を\n釣り上げた!!");
             combo += 1;
+            score += 100 * xscore;
         }
         tst = fishx[1] + 5 * 42; //口の大体の座標
         tst2 = fishy[1];
@@ -703,6 +718,7 @@ public class Stage_1 extends AppCompatActivity {
             tottatext.setTextColor(Color.rgb(97,123,235));
             tottatext.setText("青い魚を\n釣り上げた!!");
             combo += 1;
+            score += 200 * xscore;
         }
         tst = fishx[4] - 5 * 42; //口の大体の座標
         tst2 = fishy[4];
@@ -722,6 +738,7 @@ public class Stage_1 extends AppCompatActivity {
             tottatext.setTextColor(Color.rgb(97,123,235));
             tottatext.setText("青い魚を\n釣り上げた!!");
             combo += 1;
+            score += 200 * xscore;
         }
         tst = fishx[2] +84; //口の大体の座標
         tst2 = fishy[2];
@@ -741,6 +758,8 @@ public class Stage_1 extends AppCompatActivity {
             tottatext.setTextColor(Color.rgb(244,245,24));
             tottatext.setText("黄色い魚を\n釣り上げた!!");
             combo += 1;
+            score += 500 * xscore;
+            hp += 5;
         }
         tst = fishx[5] - 84; //口の大体の座標
         tst2 = fishy[5];
@@ -760,6 +779,8 @@ public class Stage_1 extends AppCompatActivity {
             tottatext.setTextColor(Color.rgb(244,245,24));
             tottatext.setText("黄色い魚を\n釣り上げた!!");
             combo += 1;
+            score += 500 * xscore;
+            hp += 5;
         }
         if((550 - fishx[7])*(550 - fishx[7])  + (tst3 - fishy[7]) *(tst3 - fishy[7]) < 10000){
             fishx[7] = 600;
@@ -767,6 +788,7 @@ public class Stage_1 extends AppCompatActivity {
             tottatext.setTextColor(Color.rgb(0,0,0));
             tottatext.setText("空き缶を\n釣り上げた!!");
             combo += 1;
+            score += 600 * xscore;
         }
         if((550 - fishx[8])*(550 - fishx[8])  + (tst3 - fishy[8]) *(tst3 - fishy[8]) < 10000){
             fishx[8] = 600;
@@ -774,6 +796,7 @@ public class Stage_1 extends AppCompatActivity {
             tottatext.setTextColor(Color.rgb(0,0,0));
             tottatext.setText("ビニール袋を\n釣り上げた!!");
             combo += 1;
+            score += 800 * xscore;
         }
         tst = fishx[9] + 3 *84; //口の大体の座標
         tst2 = fishy[9];
@@ -793,6 +816,8 @@ public class Stage_1 extends AppCompatActivity {
             tottatext.setTextColor(Color.rgb(0,47,117));
             tottatext.setText("サメを釣り上げて\nサメパンチされた!!");
             combo = 0;
+            score -= 2000 * xscore;
+            hp -= 40;
         }
         tst = fishx[10] - 3 * 84; //口の大体の座標
         tst2 = fishy[10];
@@ -812,6 +837,8 @@ public class Stage_1 extends AppCompatActivity {
             tottatext.setTextColor(Color.rgb(244,245,24));
             tottatext.setText("サメを釣り上げて\nサメキックされた!!");
             combo = 0;
+            score -= 2000 * xscore;
+            hp -= 40;
         }
 
 
@@ -820,11 +847,35 @@ public class Stage_1 extends AppCompatActivity {
         hptext.setX(50);
         hptext.setY(100);
 
-        scoretext.setText("Score:"+ hitr); //box84 //turiito 66 //ball 44
-        hptext.setText("HP:"+ fishy[9]); //73  //132
-        combotext.setX(700);
+        scoretext.setText("Score:"+ score); //box84 //turiito 66 //ball 44
+        hptext.setText("HP:"+ hp); //73  //132
+        combotext.setX(800);
         combotext.setY(50);
         combotext.setText("Combo:" + combo);
+        time -= 1;
+        timetext.setText("Time\n" + time);
+        timetext.setX(600);
+        timetext.setY(50);
+        timetext.setScaleX((float)1.5);
+        timetext.setScaleY((float)1.5);
+
+        if(hp <= 0 || time <= 0){
+            Intent intent = new Intent(getApplication(), GameOver.class);
+            //Random rand = new Random();
+            load.setX(200);
+            load.setY(1500);
+            load.setScaleX(2);
+            load.setScaleY(2);
+            load.setText("ロード中...\nしばし待たれよ!");
+            timer.cancel();
+            intent.putExtra("HPgive",hp);
+            intent.putExtra("Scoregive",score);
+            intent.putExtra("MapID",1);
+            intent.putExtra("Prevscore",prevscore);
+            startActivity(intent);
+
+        }
+
     } //ループ終わり
 
     @Override
@@ -832,6 +883,7 @@ public class Stage_1 extends AppCompatActivity {
 
         if(gamestart == 0){ //最初だけmoveturiitoを起動
             gamestart = 1;
+            time = 6000;
             timer.schedule(new TimerTask() {
                 @Override
                 public void run() {
