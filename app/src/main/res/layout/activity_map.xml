@@ -4,34 +4,10 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:rotation="0"
     android:scaleX="1"
     android:scaleY="1"
-    tools:context=".Stage_1">
-
-    <ImageView
-        android:id="@+id/ue"
-        android:layout_width="397dp"
-        android:layout_height="98dp"
-        android:scaleX="5"
-        android:scaleY="2"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.055"
-        app:srcCompat="@drawable/ic_launcher_background" />
-
-    <ImageView
-        android:id="@+id/turiito"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.483"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.594"
-        app:srcCompat="@android:drawable/btn_default" />
+    tools:context=".Map">
 
     <TextView
         android:id="@+id/score"
@@ -48,9 +24,7 @@
         app:layout_constraintVertical_bias="0.022" />
 
     <TextView
-
         android:id="@+id/hp"
-
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:scaleX="1.2"
@@ -64,7 +38,19 @@
         app:layout_constraintVertical_bias="0.064" />
 
     <ImageView
-        android:id="@+id/fish1"
+        android:id="@+id/hito"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.047"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.656"
+        app:srcCompat="@android:drawable/title_bar" />
+
+    <ImageView
+        android:id="@+id/hidariue"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -76,7 +62,7 @@
         app:srcCompat="@android:drawable/title_bar" />
 
     <ImageView
-        android:id="@+id/fish2"
+        android:id="@+id/ue"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -88,43 +74,43 @@
         app:srcCompat="@android:drawable/title_bar" />
 
     <ImageView
-        android:id="@+id/fish3"
+        android:id="@+id/migiue"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.421"
+        app:layout_constraintHorizontal_bias="0.614"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.351"
+        app:layout_constraintVertical_bias="0.296"
         app:srcCompat="@android:drawable/title_bar" />
 
     <ImageView
-        android:id="@+id/fish4"
+        android:id="@+id/migi"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.557"
+        app:layout_constraintHorizontal_bias="0.75"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.351"
+        app:layout_constraintVertical_bias="0.325"
         app:srcCompat="@android:drawable/title_bar" />
 
     <ImageView
-        android:id="@+id/fish5"
+        android:id="@+id/migisita"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.715"
+        app:layout_constraintHorizontal_bias="0.868"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.351"
+        app:layout_constraintVertical_bias="0.389"
         app:srcCompat="@android:drawable/title_bar" />
 
     <ImageView
-        android:id="@+id/fish6"
+        android:id="@+id/sita"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -136,7 +122,7 @@
         app:srcCompat="@android:drawable/title_bar" />
 
     <ImageView
-        android:id="@+id/bag"
+        android:id="@+id/hidarisita"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -148,7 +134,7 @@
         app:srcCompat="@android:drawable/title_bar" />
 
     <ImageView
-        android:id="@+id/kan"
+        android:id="@+id/hidari"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -160,154 +146,95 @@
         app:srcCompat="@android:drawable/title_bar" />
 
     <ImageView
-        android:id="@+id/same"
+        android:id="@+id/stage1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.476"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.431"
-        app:srcCompat="@android:drawable/title_bar" />
-
-    <ImageView
-        android:id="@+id/same2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.634"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.431"
-        app:srcCompat="@android:drawable/title_bar" />
-
-    <ImageView
-        android:id="@+id/fish7"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@android:drawable/title_bar" />
-
-    <ImageView
-        android:id="@+id/redball"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.756"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.741"
-        app:srcCompat="@android:drawable/ic_notification_overlay" />
-
-    <ImageView
-        android:id="@+id/asiba"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.902"
+        app:layout_constraintHorizontal_bias="0.156"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.167"
-        app:srcCompat="@android:drawable/title_bar" />
+        app:srcCompat="@android:drawable/ic_notification_overlay" />
 
-    <TextView
-        android:id="@+id/comment"
+    <ImageView
+        android:id="@+id/stage2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:scaleX="1.2"
-        android:scaleY="1.2"
-        android:text="TextView"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.172"
+        app:layout_constraintHorizontal_bias="0.253"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.113" />
+        app:layout_constraintVertical_bias="0.167"
+        app:srcCompat="@android:drawable/ic_notification_overlay" />
 
-    <TextView
-        android:id="@+id/totta"
+    <ImageView
+        android:id="@+id/stage3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:scaleX="1.2"
-        android:scaleY="1.2"
-        android:text="TextView"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.394"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.167"
+        app:srcCompat="@android:drawable/ic_notification_overlay" />
+
+    <ImageView
+        android:id="@+id/stage4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.112" />
+        app:layout_constraintVertical_bias="0.167"
+        app:srcCompat="@android:drawable/ic_notification_overlay" />
 
-    <TextView
-        android:id="@+id/combo"
+    <ImageView
+        android:id="@+id/stage5"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:scaleX="1.2"
-        android:scaleY="1.2"
-        android:text="TextView"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.81"
+        app:layout_constraintHorizontal_bias="0.592"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.049" />
+        app:layout_constraintVertical_bias="0.167"
+        app:srcCompat="@android:drawable/ic_notification_overlay" />
 
-    <Button
-        android:id="@+id/okbutton"
+    <ImageView
+        android:id="@+id/karioki"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Button"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.703"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.296" />
+        app:layout_constraintVertical_bias="0.167"
+        app:srcCompat="@android:drawable/ic_notification_overlay" />
 
-    <Button
-        android:id="@+id/nextButton"
+    <ImageView
+        android:id="@+id/mannaka"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Button"
-        tools:layout_editor_absoluteX="160dp"
-        tools:layout_editor_absoluteY="526dp" />
-
-    <EditText
-        android:id="@+id/inputAnswer"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:ems="10"
-        android:inputType="text"
-        android:text="Name"
-        tools:layout_editor_absoluteX="88dp"
-        tools:layout_editor_absoluteY="459dp" />
-
-    <TextView
-        android:id="@+id/im"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:scaleX="2"
-        android:scaleY="2"
-        android:text="仮置き\n(デバッグ用のが残ってます)"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.497"
+        app:layout_constraintHorizontal_bias="0.23"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.791" />
+        app:layout_constraintVertical_bias="0.764"
+        app:srcCompat="@android:drawable/title_bar" />
 
     <TextView
-        android:id="@+id/txt"
+        android:id="@+id/load"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="TextView"
-        tools:layout_editor_absoluteX="72dp"
-        tools:layout_editor_absoluteY="637dp" />
+        tools:layout_editor_absoluteX="23dp"
+        tools:layout_editor_absoluteY="77dp" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
