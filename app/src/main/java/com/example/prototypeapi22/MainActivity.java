@@ -1,5 +1,6 @@
 package com.example.prototypeapi22;
 
+// タイトル画面予定地
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
@@ -39,14 +40,20 @@ public class MainActivity extends AppCompatActivity {
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
+        //Homeボタンなど消しのおまじない
+        View decorView = getWindow().getDecorView();
+        int uiOptions = View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
+                | View.SYSTEM_UI_FLAG_FULLSCREEN;
+        decorView.setSystemUiVisibility(uiOptions);
         okButton = (Button) findViewById(R.id.okbutton);
 
         okButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
 
-                Intent intent = new Intent(getApplication(), Stage_1.class);
-
+                Intent intent = new Intent(getApplication(), Map.class);
+                intent.putExtra("RoomID", 0);
+                intent.putExtra("HPgive",100);
+                intent.putExtra("Scoregive",0);
 
 
                 startActivity(intent);
