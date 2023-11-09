@@ -103,6 +103,7 @@ public class Stage_1 extends AppCompatActivity {
     int xscore = 1; //scoreの倍率
     TextView load;
     int prevscore = 0;
+    int v;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -142,6 +143,7 @@ public class Stage_1 extends AppCompatActivity {
         same = findViewById(R.id.same);
         same2 = findViewById(R.id.same2);
         bag = findViewById(R.id.bag);
+        fish7.setX(-1000);
 
         tst = rand.nextInt(500) - 600;
         tst2 = rand.nextInt(1200) + 300;
@@ -150,7 +152,7 @@ public class Stage_1 extends AppCompatActivity {
         fishy[0] = tst2;
         fish1.setX(fishx[0]); //OnCreate内だとxmlでの配置状況が(0,0)
         fish1.setY(fishy[0]); //それ以外だと左上が(0,0)になるっぽい？
-        fish1.setColorFilter(Color.rgb(229,56,49));
+        //fish1.setColorFilter(Color.rgb(229,56,49));
         tst = rand.nextInt(500) - 600;
         tst2 = rand.nextInt(1000) + 500;
         //tst = rand.nextInt(300) - 400;
@@ -159,7 +161,7 @@ public class Stage_1 extends AppCompatActivity {
         fishy[1] = tst2;
         fish2.setX(tst);
         fish2.setY(tst2);
-        fish2.setColorFilter(Color.rgb(97,123,235));
+        //fish2.setColorFilter(Color.rgb(97,123,235));
 
         tst = rand.nextInt(500) - 600;
         tst2 = rand.nextInt(1000) + 500;
@@ -167,7 +169,7 @@ public class Stage_1 extends AppCompatActivity {
         fishy[2] = tst2;
         fish3.setX(tst);
         fish3.setY(tst2);
-        fish3.setColorFilter(Color.rgb(244,245,24));
+        //fish3.setColorFilter(Color.rgb(244,245,24));
 
         //tst = rand.nextInt(300) - 400;
         //tst2 = rand.nextInt(900) + 300;
@@ -182,7 +184,7 @@ public class Stage_1 extends AppCompatActivity {
         fishy[3] = tst2;
         fish4.setX(tst);
         fish4.setY(tst2);
-        fish4.setColorFilter(Color.rgb(229,56,49));
+        //fish4.setColorFilter(Color.rgb(229,56,49));
 
         tst = rand.nextInt(500) + 1100;
         tst2 = rand.nextInt(1000) + 500;
@@ -190,7 +192,7 @@ public class Stage_1 extends AppCompatActivity {
         fishy[4] = tst2;
         fish5.setX(tst);
         fish5.setY(tst2);
-        fish5.setColorFilter(Color.rgb(97,123,235));
+        //fish5.setColorFilter(Color.rgb(97,123,235));
 
         tst = rand.nextInt(300) + 1100;
         tst2 = rand.nextInt(1000) + 500;
@@ -198,7 +200,7 @@ public class Stage_1 extends AppCompatActivity {
         fishy[5] = tst2;
         fish6.setX(tst);
         fish6.setY(tst2);
-        fish6.setColorFilter(Color.rgb(244,245,24));
+        //fish6.setColorFilter(Color.rgb(244,245,24));
 
         if(rand.nextInt(100) < 50){
             tst = rand.nextInt(300) - 400;
@@ -209,12 +211,12 @@ public class Stage_1 extends AppCompatActivity {
         tst2 = rand.nextInt(900) + 300;
         fishx[6] = tst;
         fishy[6] = tst2;
-        fish7.setX(tst);
-        fish7.setY(tst2);
+        //fish7.setX(tst);
+        //fish7.setY(tst2);
 
         //fish1~3 左から
         //fish4~6 右から
-        //fish7　特殊挙動
+        //fish7　特殊挙動予定だったけどもう放置かも
 
         if(rand.nextInt(100) < 50){
             tst = rand.nextInt(300) - 400;
@@ -246,7 +248,7 @@ public class Stage_1 extends AppCompatActivity {
         fishy[9] = tst2;
         same.setX(tst);
         same.setY(tst2);
-        same.setColorFilter((Color.rgb(0,47,117)));
+        //same.setColorFilter((Color.rgb(0,47,117)));
 
         tst = rand.nextInt(500) + 1100;
         tst2 = rand.nextInt(1000) + 500;
@@ -254,7 +256,7 @@ public class Stage_1 extends AppCompatActivity {
         fishy[10] = tst2;
         same2.setX(tst);
         same2.setY(tst2);
-        same2.setColorFilter((Color.rgb(0,47,117)));
+        //same2.setColorFilter((Color.rgb(0,47,117)));
 
         //kan.setColorFilter(Color.rgb(100,30,240));
 
@@ -271,22 +273,23 @@ public class Stage_1 extends AppCompatActivity {
         asiba.setColorFilter(Color.rgb(107,49,29));
 
         //サイズ調整
-        fish1.setScaleX(4);
-        fish4.setScaleX(4);
-        fish1.setScaleY((float)2.5);
-        fish4.setScaleY((float)2.5);
-        fish2.setScaleX(5);
-        fish5.setScaleX(5);
-        fish2.setScaleY(2);
-        fish5.setScaleY(2);
-        fish3.setScaleX(2);
-        fish6.setScaleX(2);
-        fish3.setScaleY(1);
-        fish6.setScaleY(1);
-        same.setScaleX(6);
-        same.setScaleY(3);
-        same2.setScaleX(6);
-        same2.setScaleY(3);
+        float kake =  (float)1;
+        fish1.setScaleX(4 / kake);
+        fish4.setScaleX(4/ kake);
+        fish1.setScaleY((float)2.5 / kake);
+        fish4.setScaleY((float)2.5/kake);
+        fish2.setScaleX((float)5/kake);
+        fish5.setScaleX((float)5/kake);
+        fish2.setScaleY(2/kake);
+        fish5.setScaleY(2/kake);
+        fish3.setScaleX(2/kake);
+        fish6.setScaleX(2/kake);
+        fish3.setScaleY(1/kake);
+        fish6.setScaleY(1/kake);
+        same.setScaleX(6/kake);
+        same.setScaleY(3/kake);
+        same2.setScaleX(6/kake);
+        same2.setScaleY(3/kake);
         comment = findViewById(R.id.comment);
         tottatext = findViewById(R.id.totta);
         tottatext.setY(-1000);
@@ -876,6 +879,8 @@ public class Stage_1 extends AppCompatActivity {
 
         }
 
+        //v = fish1.getHeight();
+        //hptext.setText("" + v);
     } //ループ終わり
 
     @Override
