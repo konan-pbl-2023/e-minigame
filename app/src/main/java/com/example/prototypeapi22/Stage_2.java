@@ -98,6 +98,7 @@ public class Stage_2 extends AppCompatActivity {
     int time;
     TextView timetext;
     TextView load;
+    int Clearflag;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -109,6 +110,7 @@ public class Stage_2 extends AppCompatActivity {
         Intent intent = getIntent();
         HP = intent.getIntExtra("HPgive", 10); //デバッグ用に初期値10
         Score = intent.getIntExtra("Scoregive",0);
+        Clearflag = intent.getIntExtra("Clearflag",0);
         prevscore = Score;
         timetext = findViewById(R.id.timetext);
 
@@ -432,8 +434,8 @@ public class Stage_2 extends AppCompatActivity {
                     monomovex[i] = -(rand.nextInt(20) / 5 + 1);
                     monoy[i] = rand.nextInt(700) + 200;
                     monomovey[i] = -(rand.nextInt(100));
-                    Score += 700;
-                    HP += 1;
+                    Score += 900;
+                    HP += 2;
                 }
 
             } else if (movex <= -3) { //-3
@@ -452,8 +454,8 @@ public class Stage_2 extends AppCompatActivity {
                     monomovex[i] = -(rand.nextInt(20) / 5 + 1);
                     monoy[i] = rand.nextInt(700) + 200;
                     monomovey[i] = -(rand.nextInt(100));
-                    Score += 700;
-                    HP += 1;
+                    Score += 900;
+                    HP += 2;
                 }
 
 
@@ -474,8 +476,8 @@ public class Stage_2 extends AppCompatActivity {
                     monomovex[i] = -(rand.nextInt(20) / 5 + 1);
                     monoy[i] = rand.nextInt(700) + 200;
                     monomovey[i] = -(rand.nextInt(100));
-                    Score += 700;
-                    HP += 1;
+                    Score += 900;
+                    HP += 2;
                 }
             }
         }
@@ -490,7 +492,7 @@ public class Stage_2 extends AppCompatActivity {
                 monoy[12] = rand.nextInt(700) + 200;
                 monomovey[12] = -(rand.nextInt(100));
                 Score -= 2000;
-                HP -= 40;
+                HP -= 30;
             }
 
 
@@ -500,7 +502,7 @@ public class Stage_2 extends AppCompatActivity {
                 monoy[12] = rand.nextInt(700) + 200;
                 monomovey[12] = -(rand.nextInt(100));
                 Score -= 2000;
-                HP -= 40;
+                HP -= 30;
             }
 
         } else if (movex <= -3) { //-3
@@ -511,7 +513,7 @@ public class Stage_2 extends AppCompatActivity {
                 monoy[12] = rand.nextInt(700) + 200;
                 monomovey[12] = -(rand.nextInt(100));
                 Score -= 2000;
-                HP -= 40;
+                HP -= 30;
             }
 
 
@@ -521,7 +523,7 @@ public class Stage_2 extends AppCompatActivity {
                 monoy[12] = rand.nextInt(700) + 200;
                 monomovey[12] = -(rand.nextInt(100));
                 Score -= 2000;
-                HP -= 40;
+                HP -= 30;
             }
 
 
@@ -535,7 +537,7 @@ public class Stage_2 extends AppCompatActivity {
                 monoy[12] = rand.nextInt(700) + 200;
                 monomovey[12] = -(rand.nextInt(100));
                 Score -= 2000;
-                HP -= 40;
+                HP -= 30;
             }
 
             if(monox[12]  >= hitox - 173 && monox[12] <= hitox + 173 && monoy[12] >= (float) (hitoy - 73 * ((float) boxscaley / 2 + 1))  - 73*1.5) {
@@ -544,7 +546,7 @@ public class Stage_2 extends AppCompatActivity {
                 monoy[12] = rand.nextInt(700) + 200;
                 monomovey[12] = -(rand.nextInt(100));
                 Score -= 2000;
-                HP -= 40;
+                HP -= 30;
             }
         }
 
@@ -600,6 +602,7 @@ public class Stage_2 extends AppCompatActivity {
 
         time -= 1;
         timetext.setText("Time:"+ time);
+
         timetext.setX(600);
         timetext.setY(50);
         timetext.setScaleX((float)1.5);
@@ -618,6 +621,10 @@ public class Stage_2 extends AppCompatActivity {
             intent.putExtra("Scoregive",Score);
             intent.putExtra("MapID",2);
             intent.putExtra("Prevscore",prevscore);
+            if(Clearflag % 3 != 0 && HP > 0 && Score >= 10000){
+                Clearflag *= 3;
+            }
+            intent.putExtra("Clearflag",Clearflag);
             startActivity(intent);
 
         }
