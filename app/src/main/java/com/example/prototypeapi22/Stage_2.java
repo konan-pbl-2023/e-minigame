@@ -13,7 +13,7 @@ import android.os.Bundle;
 import android.view.Display;
 import android.view.View;
 import android.widget.Button;
-import android.widget.ImageView
+import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -37,6 +37,7 @@ public class Stage_2 extends AppCompatActivity {
     public ImageView hidariue;
     public ImageView ue;
     public ImageView migiue;
+
     public ImageView migi;
     public ImageView migisita;
     public ImageView sita;

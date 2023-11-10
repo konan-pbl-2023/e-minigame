@@ -90,7 +90,10 @@ public class Map extends AppCompatActivity {
     int MapID;
     int HP;
     int Score;
+    ImageView map;
     int Clearflag;
+    int ssize;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -163,16 +166,31 @@ public class Map extends AppCompatActivity {
         stage3 = findViewById(R.id.stage3);
         stage4 = findViewById(R.id.stage4);
         stage5 = findViewById(R.id.stage5);
-        stagex[0] = 200; //仮置きのステージの座標
-        stagex[1] = 400;
-        stagex[2] = 600;
-        stagex[3] = 600;
-        stagex[4] = 600;
-        stagey[0] = 200; //仮置きのステージの座標
-        stagey[1] = 400;
-        stagey[2] = 600;
-        stagey[3] = 800;
-        stagey[4] = 1000;
+
+        ssize = 2;
+
+        stagex[0] = 780; //仮置きのステージの座標
+        stagex[1] = 350;
+        stagex[2] = 220;
+        stagex[3] = 830;
+        stagex[4] = 720;
+        stagey[0] = 1750; //仮置きのステージの座標
+        stagey[1] = 900;
+        stagey[2] = 1350;
+        stagey[3] = 1050;
+        stagey[4] = 560;
+
+        stage1.setScaleX(ssize);
+        stage1.setScaleY(ssize);
+        stage2.setScaleX(ssize);
+        stage2.setScaleY(ssize);
+        stage3.setScaleX(ssize);
+        stage3.setScaleY(ssize);
+        stage4.setScaleX(ssize);
+        stage4.setScaleY(ssize);
+        stage5.setScaleX(ssize);
+        stage5.setScaleY(ssize);
+
 
         if(Clearflag % 2 == 0 && Clearflag != 0) {
             stage1.setColorFilter(Color.rgb(0, 50, 250));
@@ -200,6 +218,11 @@ public class Map extends AppCompatActivity {
 
         load = findViewById(R.id.load); //ステージ遷移時の読み込みに使用
         load.setX(2000); //最初は見えない所に飛ばしておく
+        map = findViewById(R.id.map);
+        map.setScaleX((float)1.4);
+        map.setScaleY((float)1.4);
+        map.setX(100);
+        map.setY(100);
 
     }
     public void game(){
