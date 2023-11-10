@@ -9,6 +9,18 @@
     android:scaleY="1"
     tools:context=".Map">
 
+    <ImageView
+        android:id="@+id/map"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0"
+        app:srcCompat="@drawable/b8cfe116_d708_43ac_9a75_58967a25f750" />
+
     <TextView
         android:id="@+id/score"
         android:layout_width="wrap_content"
