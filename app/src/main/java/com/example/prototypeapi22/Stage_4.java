@@ -318,6 +318,7 @@ public class Stage_4 extends AppCompatActivity {
             if (movey > 0) {
                 movey = 0;
             }
+
         }
 
         time -= 1;
