@@ -23,7 +23,7 @@ public class GameOver extends AppCompatActivity {
     Button mapbutton;
     Button stagebutton;
     Button titlebutton;
-
+    int Clearflag;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -39,6 +39,7 @@ public class GameOver extends AppCompatActivity {
         HP = intent.getIntExtra("HPgive", 0);
         Score = intent.getIntExtra("Scoregive",0);
         MapID = intent.getIntExtra("MapID",0);
+        Clearflag = intent.getIntExtra("Clearflag",0);
         mapbutton = findViewById(R.id.mapbutton);
         stagebutton = findViewById(R.id.stagebutton);
         titlebutton = findViewById(R.id.titlebutton);
@@ -58,6 +59,7 @@ public class GameOver extends AppCompatActivity {
                         intent.putExtra("HPgive",HP);
                     }
                     intent.putExtra("Scoregive",Score);
+                    intent.putExtra("Clearflag",Clearflag);
 
                     startActivity(intent);
 
@@ -70,6 +72,46 @@ public class GameOver extends AppCompatActivity {
                         intent.putExtra("HPgive",HP);
                     }
                     intent.putExtra("Scoregive",Score);
+                    intent.putExtra("Clearflag",Clearflag);
+
+                    startActivity(intent);
+
+                }
+                if(MapID == 3 ) {
+                    Intent intent = new Intent(getApplication(), Stage_3.class);
+                    if(HP <= 0) {
+                        intent.putExtra("HPgive", 100);
+                    }else{
+                        intent.putExtra("HPgive",HP);
+                    }
+                    intent.putExtra("Scoregive",Score);
+                    intent.putExtra("Clearflag",Clearflag);
+
+                    startActivity(intent);
+
+                }
+                if(MapID == 4) {
+                    Intent intent = new Intent(getApplication(), Stage_4.class);
+                    if(HP <= 0) {
+                        intent.putExtra("HPgive", 100);
+                    }else{
+                        intent.putExtra("HPgive",HP);
+                    }
+                    intent.putExtra("Scoregive",Score);
+                    intent.putExtra("Clearflag",Clearflag);
+
+                    startActivity(intent);
+
+                }
+                if(MapID == 5 ) {
+                    Intent intent = new Intent(getApplication(), Stage_5.class);
+                    if(HP <= 0) {
+                        intent.putExtra("HPgive", 100);
+                    }else{
+                        intent.putExtra("HPgive",HP);
+                    }
+                    intent.putExtra("Scoregive",Score);
+                    intent.putExtra("Clearflag",Clearflag);
 
                     startActivity(intent);
 
@@ -87,6 +129,7 @@ public class GameOver extends AppCompatActivity {
                     }
                     intent.putExtra("Scoregive",Score);
                     intent.putExtra("MapID",MapID);
+                intent.putExtra("Clearflag",Clearflag);
 
                     startActivity(intent);
 
@@ -142,6 +185,66 @@ public class GameOver extends AppCompatActivity {
             }else{
                 gameover.setText("Game Clear!!!");
                 because.setText("よくできました\nHP:" + HP + "\n今回のScore:"+ nowscore + "\n合計Score:" + Score);
+            }
+        }
+        //Stage_3のゲームオーバーテキスト
+        if(MapID == 3){
+            gameover.setScaleX(4);
+            gameover.setScaleY(4);
+            because.setScaleX(2);
+            because.setScaleY(2);
+
+            if(HP <= 0) {
+                gameover.setText("Game Over!!!");
+                because.setText("かりおき\nHP:" + HP + "\n今回のScore:"+ nowscore + "\n合計Score:" + Score);
+                stagebutton.setText("HPを回復して元のステージをやり直す");
+                mapbutton.setText("HPを回復してマップに戻る");
+            }else if(Score - prevscore <10000){
+                gameover.setText("Game Over!!!");
+                because.setText("かりおき\nHP:" + HP + "\n今回のScore:"+ nowscore + "\n合計Score:" + Score);
+            }else{
+                gameover.setText("Game Clear!!!");
+                because.setText("かりおき\nHP:" + HP + "\n今回のScore:"+ nowscore + "\n合計Score:" + Score);
+            }
+        }
+        //Stage_4のゲームオーバーテキスト
+        if(MapID == 4){
+            gameover.setScaleX(4);
+            gameover.setScaleY(4);
+            because.setScaleX(2);
+            because.setScaleY(2);
+
+            if(HP <= 0) {
+                gameover.setText("Game Over!!!");
+                because.setText("かりおき\nHP:" + HP + "\n今回のScore:"+ nowscore + "\n合計Score:" + Score);
+                stagebutton.setText("HPを回復して元のステージをやり直す");
+                mapbutton.setText("HPを回復してマップに戻る");
+            }else if(Score - prevscore <10000){
+                gameover.setText("Game Over!!!");
+                because.setText("かりおき\nHP:" + HP + "\n今回のScore:"+ nowscore + "\n合計Score:" + Score);
+            }else{
+                gameover.setText("Game Clear!!!");
+                because.setText("かりおき\nHP:" + HP + "\n今回のScore:"+ nowscore + "\n合計Score:" + Score);
+            }
+        }
+        //Stage_5のゲームオーバーテキスト
+        if(MapID == 5){
+            gameover.setScaleX(4);
+            gameover.setScaleY(4);
+            because.setScaleX(2);
+            because.setScaleY(2);
+
+            if(HP <= 0) {
+                gameover.setText("Game Over!!!");
+                because.setText("かりおき\nHP:" + HP + "\n今回のScore:"+ nowscore + "\n合計Score:" + Score);
+                stagebutton.setText("HPを回復して元のステージをやり直す");
+                mapbutton.setText("HPを回復してマップに戻る");
+            }else if(Score - prevscore <10000){
+                gameover.setText("Game Over!!!");
+                because.setText("かりおき\nHP:" + HP + "\n今回のScore:"+ nowscore + "\n合計Score:" + Score);
+            }else{
+                gameover.setText("Game Clear!!!");
+                because.setText("かりおき\nHP:" + HP + "\n今回のScore:"+ nowscore + "\n合計Score:" + Score);
             }
         }
 
