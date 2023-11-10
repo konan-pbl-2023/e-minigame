@@ -37,6 +37,7 @@ public class Stage_2 extends AppCompatActivity {
     public ImageView hidariue;
     public ImageView ue;
     public ImageView migiue;
+
     public ImageView migi;
     public ImageView migisita;
     public ImageView sita;

@@ -99,6 +99,7 @@ public class Stage_4 extends AppCompatActivity {
     Random rand = new Random();
     ImageView ball;
     ImageView mannaka;
+
     int HP;
     int time;
 
@@ -129,6 +130,19 @@ public class Stage_4 extends AppCompatActivity {
         hidari = findViewById(R.id.hidari);
         mannaka = findViewById(R.id.mannaka);
         hito = findViewById(R.id.hito);
+
+        mono1 = findViewById(R.id.mono1);
+        mono2 = findViewById(R.id.mono2);
+        mono3 = findViewById(R.id.mono3);
+        mono4 = findViewById(R.id.mono4);
+        mono5 = findViewById(R.id.mono5);
+        mono6 = findViewById(R.id.mono6);
+        mono7 = findViewById(R.id.mono7);
+        mono8 = findViewById(R.id.mono8);
+        mono9 = findViewById(R.id.mono9);
+        mono10 = findViewById(R.id.mono10);
+        mono11 = findViewById(R.id.mono11);
+        mono12 = findViewById(R.id.mono12);
 
         //ボタンのデフォルト設定
         bx = 600; //buttonX
@@ -320,6 +334,76 @@ public class Stage_4 extends AppCompatActivity {
             }
 
         }
+        mono1.setX(monox[0]);
+        mono2.setX(monox[1]);
+        mono3.setX(monox[2]);
+        mono4.setX(monox[3]);
+        mono5.setX(monox[4]);
+        mono6.setX(monox[5]);
+        mono7.setX(monox[6]);
+        mono8.setX(monox[7]);
+        mono9.setX(monox[8]);
+        mono10.setX(monox[9]);
+        mono11.setX(monox[10]);
+        mono12.setX(monox[11]);
+
+        mono1.setY(monoy[0]);
+        mono2.setY(monoy[1]);
+        mono3.setY(monoy[2]);
+        mono4.setY(monoy[3]);
+        mono5.setY(monoy[4]);
+        mono6.setY(monoy[5]);
+        mono7.setY(monoy[6]);
+        mono8.setY(monoy[7]);
+        mono9.setY(monoy[8]);
+        mono10.setY(monoy[9]);
+        mono11.setY(monoy[10]);
+        mono12.setY(monoy[11]);
+
+        if(rand.nextInt(100) < 96){
+            monox[1]+= (rand.nextInt(5) * 1.8);
+            monoy[1]+= (rand.nextInt(19) -9);
+        }else{
+            monox[1] += 24;
+            if(rand.nextInt(100) < 50) {
+                monoy[1] += 5;
+            }else{
+                monoy[1] -= 5;
+            }
+        }
+        if(monox[1] > 1300){
+//            tst = rand.nextInt(500) - 600;
+//            tst2 = rand.nextInt(1000) + 500;
+//            monox[1] = tst;
+//            monoy[1] = tst2;
+            monox[1] = -1;
+        }
+        if(monoy[1] < 400){
+            monoy[1] = 400;
+        }
+//        monox[12] = 100;
+//        monoy[12] = 500;
+//        for(int i = 0; i < obj; i++){
+//            monox[i] = +1;//rand.nextInt(800) + 800;
+//        }
+//        for(int i = 0; i < obj; i++){
+//            monoy[i] = +11;//rand.nextInt(800) + 200;
+//        }
+
+
+
+//        for(int i = 0; i < obj; i++){
+//            monomovex[i] = -(rand.nextInt(800) / 5 + 1);
+//        }
+//        for(int i = 0; i < obj; i++){
+//            monomovey[i] = -(rand.nextInt(800));
+//
+//        }
+
+//        monox[12] = 100;
+//        monoy[12] = 500;
+//        monox[12] += 100;
+//        monoy[12] += 500;
 
         time -= 1;
         if(HP <= 0 || time <= 0){
@@ -341,6 +425,7 @@ public class Stage_4 extends AppCompatActivity {
 
         }
     }
+
 
 
 
