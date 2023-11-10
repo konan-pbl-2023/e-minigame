@@ -344,7 +344,7 @@ public class Stage_4 extends AppCompatActivity {
 
 
 
-        @Override
+    @Override
     public boolean onTouchEvent (MotionEvent event) {
         //ボタン関係の処理はじめ
         tapx = (int)event.getX();
