@@ -312,6 +312,7 @@ public class Stage_4 extends AppCompatActivity {
                 movey = 0;
             }
         }
+
         if (hitoy >= 1850) {
             hitoy = 1850;
             if (movey > 0) {
