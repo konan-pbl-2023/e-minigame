@@ -1,3 +1,13 @@
 <resources>
     <string name="app_name">PrototypeAPI22</string>
+    <string name="point_pink">30 point</string>
+    <string name="point_orange">10 point</string>
+    <string name="black_name">Game Over</string>
+    <string name="score_label">Score : %d</string>
+    <string name="start_label">タップしてスタート</string>
+    <string name="label_name">Game Over!</string>
+    <string name="score_result">%d</string>
+    <string name="high_score">High Score : %d</string>
+    <string name="again_name">もう一度プレイする</string>
+    <string name="btn_start">START</string>
 </resources>
