@@ -51,7 +51,6 @@ public class Stage_3 extends AppCompatActivity {
     private int score = 0;
 
     //Handler & Timer
-    private Handler handler = new Handler();
     private Timer timer = new Timer();
 
     //Status
@@ -72,11 +71,14 @@ public class Stage_3 extends AppCompatActivity {
     private int time;
 
     //Define load
-    private TextView load = findViewById(R.id.load);
+    private TextView load;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_stage3);
+
+        load = findViewById(R.id.load);
 
         //追加
         View decorView = getWindow().getDecorView();
@@ -247,6 +249,7 @@ public class Stage_3 extends AppCompatActivity {
             timer.schedule(new TimerTask() {
                 @Override
                 public void run() {
+                    Handler handler = new Handler();
                     handler.post(new Runnable() {
                         @Override
                         public void run() {
