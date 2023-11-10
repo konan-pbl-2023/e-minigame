@@ -41,6 +41,7 @@ public class Stage_3 extends AppCompatActivity {
     private float blackX;
     private float blackY;
 
+
     //Speed
     private int boxSpeed;
     private int orangeSpeed;
