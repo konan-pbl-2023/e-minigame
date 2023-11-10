@@ -104,6 +104,7 @@ public class Stage_1 extends AppCompatActivity {
     TextView load;
     int prevscore = 0;
     int v;
+    int Clearflag;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -119,6 +120,7 @@ public class Stage_1 extends AppCompatActivity {
         Intent intent = getIntent();
         hp = intent.getIntExtra("HPgive", 0);
         score = intent.getIntExtra("Scoregive",0);
+        Clearflag = intent.getIntExtra("Clearflag",0);
         prevscore = score;
 
         ue = findViewById(R.id.ue); //水上の画像、仮置き
@@ -819,7 +821,7 @@ public class Stage_1 extends AppCompatActivity {
             tottatext.setTextColor(Color.rgb(0,47,117));
             tottatext.setText("サメを釣り上げて\nサメパンチされた!!");
             combo = 0;
-            score -= 2000 * xscore;
+            score -= 1000 * xscore;
             hp -= 40;
         }
         tst = fishx[10] - 3 * 84; //口の大体の座標
@@ -840,7 +842,7 @@ public class Stage_1 extends AppCompatActivity {
             tottatext.setTextColor(Color.rgb(244,245,24));
             tottatext.setText("サメを釣り上げて\nサメキックされた!!");
             combo = 0;
-            score -= 2000 * xscore;
+            score -= 1000 * xscore;
             hp -= 40;
         }
 
@@ -875,6 +877,10 @@ public class Stage_1 extends AppCompatActivity {
             intent.putExtra("Scoregive",score);
             intent.putExtra("MapID",1);
             intent.putExtra("Prevscore",prevscore);
+            if(Clearflag % 2 != 0 && hp > 0 && score >= 10000){
+                Clearflag *= 2;
+            }
+            intent.putExtra("Clearflag",Clearflag);
             startActivity(intent);
 
         }

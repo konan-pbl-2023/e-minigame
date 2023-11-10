@@ -90,6 +90,7 @@ public class Map extends AppCompatActivity {
     int MapID;
     int HP;
     int Score;
+    int Clearflag;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -104,6 +105,8 @@ public class Map extends AppCompatActivity {
         MapID = intent.getIntExtra("MapID",0);
         HP = intent.getIntExtra("HPgive", 0);
         Score = intent.getIntExtra("Scoregive",0);
+        Clearflag = intent.getIntExtra("Clearflag",1);
+        //1　→ *2 ;2 → 3;3→5;4→7
         hptext = findViewById(R.id.hp);
         scoretext = findViewById(R.id.score);
         hptext.setText("HP:"+HP);
@@ -170,6 +173,22 @@ public class Map extends AppCompatActivity {
         stagey[2] = 600;
         stagey[3] = 800;
         stagey[4] = 1000;
+
+        if(Clearflag % 2 == 0 && Clearflag != 0) {
+            stage1.setColorFilter(Color.rgb(0, 50, 250));
+        }
+        if(Clearflag % 3 == 0 && Clearflag != 0) {
+            stage2.setColorFilter(Color.rgb(0, 50, 250));
+        }
+        if(Clearflag % 5 == 0 && Clearflag != 0) {
+            stage3.setColorFilter(Color.rgb(0, 50, 250));
+        }
+        if(Clearflag % 7 == 0 && Clearflag != 0) {
+            stage4.setColorFilter(Color.rgb(0, 50, 250));
+        }
+        if(Clearflag % 11 == 0 && Clearflag != 0) {
+            stage4.setColorFilter(Color.rgb(0, 50, 250));
+        }
 
         if(MapID == 0){ //初期位置
             hitox = 200;
@@ -288,6 +307,7 @@ public class Map extends AppCompatActivity {
 
             intent.putExtra("HPgive", HP);
             intent.putExtra("Scoregive",Score);
+            intent.putExtra("Clearflag",Clearflag);
             startActivity(intent);
         //}else{
         //    load.setText("テストなう");
@@ -304,6 +324,59 @@ public class Map extends AppCompatActivity {
 
             intent.putExtra("HPgive", HP);
             intent.putExtra("Scoregive",Score);
+            intent.putExtra("Clearflag",Clearflag);
+            startActivity(intent);
+            //}else{
+            //    load.setText("テストなう");
+        }else if(stagemoveflag == 3 && movenum == 9){
+
+            load.setX(200);
+            load.setY(1500);
+            load.setScaleX(2);
+            load.setScaleY(2);
+            load.setText("ロード中...\nしばし待たれよ!");
+            timer.cancel();
+            Intent intent = new Intent(getApplication(), Stage_3.class);
+
+
+            intent.putExtra("HPgive", HP);
+            intent.putExtra("Scoregive",Score);
+            intent.putExtra("Clearflag",Clearflag);
+            startActivity(intent);
+            //}else{
+            //    load.setText("テストなう");
+        }else if(stagemoveflag == 4 && movenum == 9){
+
+            load.setX(200);
+            load.setY(1500);
+            load.setScaleX(2);
+            load.setScaleY(2);
+            load.setText("ロード中...\nしばし待たれよ!");
+
+            timer.cancel();
+            Intent intent = new Intent(getApplication(), Stage_4.class);
+
+
+            intent.putExtra("HPgive", HP);
+            intent.putExtra("Scoregive",Score);
+            intent.putExtra("Clearflag",Clearflag);
+            startActivity(intent);
+            //}else{
+            //    load.setText("テストなう");
+        }else if(stagemoveflag == 5 && movenum == 9){
+
+            load.setX(200);
+            load.setY(1500);
+            load.setScaleX(2);
+            load.setScaleY(2);
+            load.setText("ロード中...\nしばし待たれよ!");
+            timer.cancel();
+            Intent intent = new Intent(getApplication(), Stage_5.class);
+
+
+            intent.putExtra("HPgive", HP);
+            intent.putExtra("Scoregive",Score);
+            intent.putExtra("Clearflag",Clearflag);
             startActivity(intent);
             //}else{
             //    load.setText("テストなう");
