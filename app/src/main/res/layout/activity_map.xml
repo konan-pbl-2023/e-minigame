@@ -206,18 +206,6 @@
         app:srcCompat="@android:drawable/ic_notification_overlay" />
 
     <ImageView
-        android:id="@+id/karioki"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.703"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.167"
-        app:srcCompat="@android:drawable/ic_notification_overlay" />
-
-    <ImageView
         android:id="@+id/mannaka"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
