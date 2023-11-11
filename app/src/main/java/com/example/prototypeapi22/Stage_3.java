@@ -1,7 +1,6 @@
 package com.example.prototypeapi22;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.constraintlayout.utils.widget.MotionLabel;
 
 import android.content.Intent;
 import android.graphics.Point;
@@ -41,7 +40,6 @@ public class Stage_3 extends AppCompatActivity {
     private float blackX;
     private float blackY;
 
-
     //Speed
     private int boxSpeed;
     private int orangeSpeed;
@@ -52,6 +50,7 @@ public class Stage_3 extends AppCompatActivity {
     private int score = 0;
 
     //Handler & Timer
+    private Handler handler = new Handler();
     private Timer timer = new Timer();
 
     //Status
@@ -61,39 +60,12 @@ public class Stage_3 extends AppCompatActivity {
     //Sound
     private SoundPlayer soundPlayer;
 
-    //Player HP
-    private int HP;
-    //Player Score
-    private int Score;
-    //Preserve score
-    private int prevscore;
-
-    //Define time
-    private int time;
-
-    //Define load
-    private TextView load;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_stage3);
 
-        load = findViewById(R.id.load);
-
-        //追加
-        View decorView = getWindow().getDecorView();
-        int uiOptions = View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
-                | View.SYSTEM_UI_FLAG_FULLSCREEN;
-        decorView.setSystemUiVisibility(uiOptions);
-        Intent intent = getIntent();
-        HP = intent.getIntExtra("HPgive", 10); //デバッグ用に初期値10
-        Score = intent.getIntExtra("Scoregive",0);
-        prevscore = Score;
-        //ここまで追加
-
-        //soundPlayer = new com.example.mygame.SoundPlayer(this);
-        soundPlayer = new com.example.prototypeapi22.SoundPlayer(this);
+        soundPlayer = new SoundPlayer(this);
 
         scoreLabel = findViewById(R.id.scoreLabel);
         startLabel = findViewById(R.id.startLabel);
@@ -174,22 +146,6 @@ public class Stage_3 extends AppCompatActivity {
         box.setY(boxY);
 
         scoreLabel.setText(getString(R.string.score_label, score));
-
-        if(HP <= 0 || time <= 0) {
-            Intent intent = new Intent(getApplicationContext(), GameOver.class);
-
-            load.setX(200);
-            load.setY(1500);
-            load.setScaleX(2);
-            load.setScaleY(2);
-            load.setText("ロード中...\nしばし待たれよ!");
-            timer.cancel();//重要
-            intent.putExtra("HPgive", HP);
-            intent.putExtra("Scoregive", Score);
-            intent.putExtra("MapID", 2);
-            intent.putExtra("Prevscore", prevscore);
-            startActivity(intent);
-        }
     }
 
     public void hitCheck() {
@@ -250,7 +206,6 @@ public class Stage_3 extends AppCompatActivity {
             timer.schedule(new TimerTask() {
                 @Override
                 public void run() {
-                    Handler handler = new Handler();
                     handler.post(new Runnable() {
                         @Override
                         public void run() {
