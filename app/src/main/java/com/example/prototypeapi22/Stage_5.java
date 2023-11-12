@@ -849,6 +849,7 @@ public class Stage_5 extends AppCompatActivity {
 
 
 
+
         //ボタン関係の処理終わり
         if(gamestart == 0){ //最初だけgameを起動
             dragon.setX(1000);
