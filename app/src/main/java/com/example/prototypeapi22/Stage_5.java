@@ -583,6 +583,7 @@ public class Stage_5 extends AppCompatActivity {
             dragony -= tst * tst * dragonmove;
         }else{
             nowdragontimer = 0;
+            dragony = 900;
         }
 
         nowdragontimer += 2;

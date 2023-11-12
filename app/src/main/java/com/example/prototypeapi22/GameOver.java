@@ -47,10 +47,11 @@ public class GameOver extends AppCompatActivity {
         stagebutton.setText("元のステージをやり直す");
         mapbutton.setText("マップに戻る");
         titlebutton.setText("タイトルに戻る(初めから)");
+
+        prevscore = intent.getIntExtra("Prevscore",0);
         if(MapID == 5 && HP >= 0 && Score - prevscore >= 10000){
             titlebutton.setText("エンディングに行く");
         }
-        prevscore = intent.getIntExtra("Prevscore",0);
         nowscore = Score - prevscore;
         if(MapID == 5 && HP >= 0 && Score - prevscore >= 10000){
             mapbutton.setX(2000);
@@ -157,6 +158,7 @@ public class GameOver extends AppCompatActivity {
                     startActivity(intent);
                 }else {
                     Intent intent = new Intent(getApplication(), MainActivity.class);
+                    startActivity(intent);
                 }
             }
         });
