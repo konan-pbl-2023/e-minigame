@@ -853,6 +853,7 @@ public class Stage_5 extends AppCompatActivity {
             dragon.setX(1000);
             dragon.setY(900);
             gamestart = 1;
+
             time = 12000; //デバッグ終わったら12000予定
             dragonhp.setX(500);
             dragonhp.setY(50);
