@@ -3,6 +3,7 @@ package com.example.prototypeapi22;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
@@ -46,8 +47,18 @@ public class GameOver extends AppCompatActivity {
         stagebutton.setText("元のステージをやり直す");
         mapbutton.setText("マップに戻る");
         titlebutton.setText("タイトルに戻る(初めから)");
+
         prevscore = intent.getIntExtra("Prevscore",0);
+        if(MapID == 5 && HP >= 0 && Score - prevscore >= 10000){
+            titlebutton.setText("エンディングに行く");
+        }
         nowscore = Score - prevscore;
+        if(MapID == 5 && HP >= 0 && Score - prevscore >= 10000){
+            mapbutton.setX(2000);
+            stagebutton.setX(2000);
+            titlebutton.setY(-400);
+        }
+
         //来たステージに戻る
         stagebutton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
@@ -139,12 +150,16 @@ public class GameOver extends AppCompatActivity {
         titlebutton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
 
-                Intent intent = new Intent(getApplication(), MainActivity.class);
 
-
-                startActivity(intent);
-
-
+                if(MapID == 5 && HP >= 0 && Score - prevscore >= 10000) {
+                    Intent intent = new Intent(getApplication(), Ending.class);
+                    intent.putExtra("HPgive", HP);
+                    intent.putExtra("Scoregive", Score);
+                    startActivity(intent);
+                }else {
+                    Intent intent = new Intent(getApplication(), MainActivity.class);
+                    startActivity(intent);
+                }
             }
         });
 
@@ -236,15 +251,16 @@ public class GameOver extends AppCompatActivity {
 
             if(HP <= 0) {
                 gameover.setText("Game Over!!!");
-                because.setText("かりおき\nHP:" + HP + "\n今回のScore:"+ nowscore + "\n合計Score:" + Score);
+                because.setText("ドラゴンに当たると大ダメージ\n離れて戦いましょう\nHP:" + HP + "\n今回のScore:"+ nowscore + "\n合計Score:" + Score);
                 stagebutton.setText("HPを回復して元のステージをやり直す");
                 mapbutton.setText("HPを回復してマップに戻る");
             }else if(Score - prevscore <10000){
                 gameover.setText("Game Over!!!");
-                because.setText("かりおき\nHP:" + HP + "\n今回のScore:"+ nowscore + "\n合計Score:" + Score);
+                because.setText("ドラゴンの一瞬止まるところに\n狙いを定めましょう\nHP:" + HP + "\n今回のScore:"+ nowscore + "\n合計Score:" + Score);
             }else{
                 gameover.setText("Game Clear!!!");
-                because.setText("かりおき\nHP:" + HP + "\n今回のScore:"+ nowscore + "\n合計Score:" + Score);
+                //because.setTextColor(Color.rgb(255,0,0));
+                because.setText("あなたは\n世界最強の清掃員!\nHP:" + HP + "\n今回のScore:"+ nowscore + "\n合計Score:" + Score);
             }
         }
 

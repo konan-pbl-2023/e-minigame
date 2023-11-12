@@ -205,7 +205,7 @@ public class Map extends AppCompatActivity {
             stage4.setColorFilter(Color.rgb(0, 50, 250));
         }
         if(Clearflag % 11 == 0 && Clearflag != 0) {
-            stage4.setColorFilter(Color.rgb(0, 50, 250));
+            stage5.setColorFilter(Color.rgb(0, 50, 250));
         }
 
         if(MapID == 0){ //初期位置
