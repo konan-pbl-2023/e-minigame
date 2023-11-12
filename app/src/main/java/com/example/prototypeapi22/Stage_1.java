@@ -23,30 +23,17 @@ package com.example.prototypeapi22;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
-import android.content.res.Resources;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.graphics.Bitmap.Config;
 import android.graphics.Color;
-import android.graphics.Path;
 import android.os.Bundle;
-import android.view.Display;
 import android.view.View;
-import android.widget.Button;
 import android.widget.ImageView;
-import android.widget.RelativeLayout;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.os.Handler;
-import android.view.Gravity;
+
 import java.util.Random;
 import java.util.Timer;
 import java.util.TimerTask;
 import android.view.MotionEvent;
-import android.graphics.Matrix;
-import android.view.ViewGroup;
-
-import org.w3c.dom.Text;
 
 
 public class Stage_1 extends AppCompatActivity {
@@ -295,7 +282,7 @@ public class Stage_1 extends AppCompatActivity {
         comment = findViewById(R.id.comment);
         tottatext = findViewById(R.id.totta);
         tottatext.setY(-1000);
-        combotext = findViewById(R.id.combo);
+        combotext = findViewById(R.id.dragonhp);
 
         timetext = findViewById(R.id.time);
         load = findViewById(R.id.load);
