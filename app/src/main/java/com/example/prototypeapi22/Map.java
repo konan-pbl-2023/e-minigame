@@ -11,6 +11,9 @@ import android.graphics.BitmapFactory;
 import android.graphics.Bitmap.Config;
 import android.graphics.Color;
 import android.graphics.Path;
+import android.media.AudioAttributes;
+import android.media.MediaPlayer;
+import android.media.SoundPool;
 import android.os.Bundle;
 import android.view.Display;
 import android.view.View;
@@ -93,7 +96,13 @@ public class Map extends AppCompatActivity {
     ImageView map;
     int Clearflag;
     int ssize;
-
+    TextView movetext;
+    int debugmode = 0;
+    int debug = 0;
+    int nomiss = 0;
+    SoundPool soundPool;
+    int buttonse;
+    MediaPlayer mainbgm;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -103,10 +112,10 @@ public class Map extends AppCompatActivity {
         int uiOptions = View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
                 | View.SYSTEM_UI_FLAG_FULLSCREEN;
         decorView.setSystemUiVisibility(uiOptions);
-
+        BGM();
         Intent intent = getIntent();
         MapID = intent.getIntExtra("MapID",0);
-        HP = intent.getIntExtra("HPgive", 0);
+        HP = intent.getIntExtra("HPgive", 100);
         Score = intent.getIntExtra("Scoregive",0);
         Clearflag = intent.getIntExtra("Clearflag",1);
         //1　→ *2 ;2 → 3;3→5;4→7
@@ -160,6 +169,15 @@ public class Map extends AppCompatActivity {
         mannaka.setScaleY(bscale);
         mannaka.setAlpha(150);
         //ボタン処理ここまで
+        hidari.setX(2000);
+        hidariue.setX(2000);
+        migiue.setX(2000);
+        hidarisita.setX(2000);
+        migi.setX(2000);
+        migisita.setX(2000);
+        ue.setX(2000);
+        sita.setX(2000);
+        mannaka.setX(2000);
 
         stage1 = findViewById(R.id.stage1);
         stage2 = findViewById(R.id.stage2);
@@ -169,16 +187,25 @@ public class Map extends AppCompatActivity {
 
         ssize = 2;
 
-        stagex[0] = 780; //仮置きのステージの座標
-        stagex[1] = 350;
-        stagex[2] = 220;
-        stagex[3] = 830;
-        stagex[4] = 720;
-        stagey[0] = 1750; //仮置きのステージの座標
-        stagey[1] = 900;
-        stagey[2] = 1350;
-        stagey[3] = 1050;
-        stagey[4] = 560;
+        stagex[0] = 2780; //仮置きのステージの座標
+        stagex[1] = 2350;
+        stagex[2] = 2220;
+        stagex[3] = 3830;
+        stagex[4] = 2720;
+        stagey[0] = 3750; //仮置きのステージの座標
+        stagey[1] = 2900;
+        stagey[2] = 3350;
+        stagey[3] = 3050;
+        stagey[4] = 2560;
+
+
+        stage1.setX(stagex[0]);
+        stage2.setX(stagex[1]);
+        stage3.setX(stagex[2]);
+        stage4.setX(stagex[3]);
+        stage5.setX(stagex[4]);
+        hito.setX(2000);
+
 
         stage1.setScaleX(ssize);
         stage1.setScaleY(ssize);
@@ -208,13 +235,7 @@ public class Map extends AppCompatActivity {
             stage5.setColorFilter(Color.rgb(0, 50, 250));
         }
 
-        if(MapID == 0){ //初期位置
-            hitox = 200;
-            hitoy = 400;
-        }else{
-            hitox = stagex[MapID-1];
-            hitoy = stagey[MapID-1] - 50;
-        }
+
 
         load = findViewById(R.id.load); //ステージ遷移時の読み込みに使用
         load.setX(2000); //最初は見えない所に飛ばしておく
@@ -223,7 +244,35 @@ public class Map extends AppCompatActivity {
         map.setScaleY((float)1.4);
         map.setX(100);
         map.setY(100);
+        hptext.setScaleX((float)1.5);
+        hptext.setScaleY((float)1.5);
+        scoretext.setScaleX((float)1.5);
+        scoretext.setScaleY((float)1.5);
+        movetext = findViewById(R.id.movetext);
+        movetext.setScaleX(1.5f);
+        movetext.setScaleY(1.5f);
+        movetext.setText("これからどこへ\n行こうかな？");
 
+        AudioAttributes audioAttributes = new AudioAttributes.Builder()
+                // USAGE_MEDIA
+                // USAGE_GAME
+                .setUsage(AudioAttributes.USAGE_GAME)
+                // CONTENT_TYPE_MUSIC
+                // CONTENT_TYPE_SPEECH, etc.
+                .setContentType(AudioAttributes.CONTENT_TYPE_SPEECH)
+                .build();
+        soundPool = new SoundPool.Builder()
+                .setAudioAttributes(audioAttributes)
+                // ストリーム数に応じて
+                .setMaxStreams(10)
+                .build();
+        buttonse = soundPool.load(this,R.raw.buttonse,0);
+
+    }
+    public void BGM(){
+        mainbgm = MediaPlayer.create(this,R.raw.mainbgm);
+
+        mainbgm.start();
     }
     public void game(){
         //ボタン処理開始
@@ -317,17 +366,56 @@ public class Map extends AppCompatActivity {
                 mannaka.setColorFilter(Color.rgb(200,0,0));
             }
         }
-        if(stagemoveflag == 1 && movenum == 9){
+        if(stagemoveflag == 1){
+            movetext.setText("Stage_1\n魚釣り\nサメさん注意");
+        }else if(stagemoveflag == 2){
+            movetext.setText("Stage_2\nごみ集め\n妖怪鉄球落とし在中");
+        }else if(stagemoveflag == 3){
+            movetext.setText("Stage_3\n射的\n頑張って狙おう");
+        }else if(stagemoveflag == 4){
+            movetext.setText("Stage_4\n金魚すくい\n丁寧さが大事");
+        }else if(stagemoveflag == 5){
+            if(Clearflag != 210){
+                movetext.setText("Stage_5\nドラゴンだ\nまだ力不足かも");
+            }else{
+                movetext.setText("Stage_5\nドラゴンだ!!\n最終決戦!!");
+            }
 
+        }else{
+            movetext.setText("これからどこへ\n行こうかな？");
+        }
+        if(tapx > 1050 && tapy < 30 && debugmode == 0){
+            debugmode = 1000;
+            Clearflag = 210;
+            nomiss = 0;
+        }
+        if(debugmode > 0){
+            movetext.setText("デバッグモード発動!!\nしゃきーん!!");
+            stage1.setColorFilter(Color.rgb(0, 50, 250));
+            stage2.setColorFilter(Color.rgb(0, 50, 250));
+            stage3.setColorFilter(Color.rgb(0, 50, 250));
+            stage4.setColorFilter(Color.rgb(0, 50, 250));
+
+            //stage5.setColorFilter(Color.rgb(0, 50, 250));
+        }
+        if(debugmode > 0) {
+            debugmode -= 1;
+            debug = 1;
+        }
+
+        if(stagemoveflag == 1 && movenum == 9){
+            soundPool.play(buttonse, 3.0f, 3.0f, 0, 0, 1.0f);
             load.setX(200);
             load.setY(1500);
             load.setScaleX(2);
             load.setScaleY(2);
             load.setText("ロード中...\nしばし待たれよ!");
             timer.cancel();
+            mainbgm.stop();
             Intent intent = new Intent(getApplication(), Stage_1.class);
 
-
+            intent.putExtra("nomissflag",nomiss);
+            intent.putExtra("debugmode",debug);
             intent.putExtra("HPgive", HP);
             intent.putExtra("Scoregive",Score);
             intent.putExtra("Clearflag",Clearflag);
@@ -335,16 +423,18 @@ public class Map extends AppCompatActivity {
         //}else{
         //    load.setText("テストなう");
         }else if(stagemoveflag == 2 && movenum == 9){
-
+            soundPool.play(buttonse, 3.0f, 3.0f, 0, 0, 1.0f);
             load.setX(200);
             load.setY(1500);
             load.setScaleX(2);
             load.setScaleY(2);
             load.setText("ロード中...\nしばし待たれよ!");
             timer.cancel();
+            mainbgm.stop();
             Intent intent = new Intent(getApplication(), Stage_2.class);
 
-
+            intent.putExtra("nomissflag",nomiss);
+            intent.putExtra("debugmode",debug);
             intent.putExtra("HPgive", HP);
             intent.putExtra("Scoregive",Score);
             intent.putExtra("Clearflag",Clearflag);
@@ -352,16 +442,18 @@ public class Map extends AppCompatActivity {
             //}else{
             //    load.setText("テストなう");
         }else if(stagemoveflag == 3 && movenum == 9){
-
+            soundPool.play(buttonse, 3.0f, 3.0f, 0, 0, 1.0f);
             load.setX(200);
             load.setY(1500);
             load.setScaleX(2);
             load.setScaleY(2);
             load.setText("ロード中...\nしばし待たれよ!");
             timer.cancel();
+            mainbgm.stop();
             Intent intent = new Intent(getApplication(), Stage_3.class);
 
-
+            intent.putExtra("nomissflag",nomiss);
+            intent.putExtra("debugmode",debug);
             intent.putExtra("HPgive", HP);
             intent.putExtra("Scoregive",Score);
             intent.putExtra("Clearflag",Clearflag);
@@ -369,7 +461,7 @@ public class Map extends AppCompatActivity {
             //}else{
             //    load.setText("テストなう");
         }else if(stagemoveflag == 4 && movenum == 9){
-
+            soundPool.play(buttonse, 3.0f, 3.0f, 0, 0, 1.0f);
             load.setX(200);
             load.setY(1500);
             load.setScaleX(2);
@@ -377,26 +469,29 @@ public class Map extends AppCompatActivity {
             load.setText("ロード中...\nしばし待たれよ!");
 
             timer.cancel();
+            mainbgm.stop();
             Intent intent = new Intent(getApplication(), Stage_4.class);
 
-
+            intent.putExtra("nomissflag",nomiss);
+            intent.putExtra("debugmode",debug);
             intent.putExtra("HPgive", HP);
             intent.putExtra("Scoregive",Score);
             intent.putExtra("Clearflag",Clearflag);
             startActivity(intent);
             //}else{
             //    load.setText("テストなう");
-        }else if(stagemoveflag == 5 && movenum == 9){
-
+        }else if(stagemoveflag == 5 && movenum == 9 && Clearflag == 210){
+            soundPool.play(buttonse, 3.0f, 3.0f, 0, 0, 1.0f);
             load.setX(200);
             load.setY(1500);
             load.setScaleX(2);
             load.setScaleY(2);
             load.setText("ロード中...\nしばし待たれよ!");
             timer.cancel();
+            mainbgm.stop();
             Intent intent = new Intent(getApplication(), Stage_5.class);
-
-
+            intent.putExtra("nomissflag",nomiss);
+            intent.putExtra("debugmode",debug);
             intent.putExtra("HPgive", HP);
             intent.putExtra("Scoregive",Score);
             intent.putExtra("Clearflag",Clearflag);
@@ -405,6 +500,14 @@ public class Map extends AppCompatActivity {
             //    load.setText("テストなう");
         }
 
+        scoretext.setX(50);
+        scoretext.setY(100);
+        hptext.setX(50);
+        hptext.setY(200);
+        scoretext.setScaleX((float)1.5);
+        hptext.setScaleX((float)1.5);
+        scoretext.setScaleY((float)1.5);
+        hptext.setScaleY((float)1.5);
 
         hito.setX(hitox);
         hito.setY(hitoy);
@@ -425,6 +528,23 @@ public class Map extends AppCompatActivity {
             hito.setX(200);
             hito.setY(400);
             gamestart = 1;
+            stagex[0] = 780; //仮置きのステージの座標
+        stagex[1] = 350;
+        stagex[2] = 220;
+        stagex[3] = 830;
+        stagex[4] = 720;
+        stagey[0] = 1750; //仮置きのステージの座標
+        stagey[1] = 900;
+        stagey[2] = 1350;
+        stagey[3] = 1050;
+        stagey[4] = 560;
+            if(MapID == 0){ //初期位置
+                hitox = 200;
+                hitoy = 400;
+            }else{
+                hitox = stagex[MapID-1];
+                hitoy = stagey[MapID-1] - 50;
+            }
 
             timer.schedule(new TimerTask() {
                 @Override

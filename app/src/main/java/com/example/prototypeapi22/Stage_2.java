@@ -9,6 +9,9 @@ import android.graphics.BitmapFactory;
 import android.graphics.Bitmap.Config;
 import android.graphics.Color;
 import android.graphics.Path;
+import android.media.AudioAttributes;
+import android.media.MediaPlayer;
+import android.media.SoundPool;
 import android.os.Bundle;
 import android.view.Display;
 import android.view.View;
@@ -100,6 +103,12 @@ public class Stage_2 extends AppCompatActivity {
     TextView timetext;
     TextView load;
     int Clearflag;
+    SoundPool soundPool;
+    int jumpse;
+    int tst;
+    int tst2;
+    int tst3;
+    MediaPlayer mainbgm;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -109,7 +118,7 @@ public class Stage_2 extends AppCompatActivity {
                 | View.SYSTEM_UI_FLAG_FULLSCREEN;
         decorView.setSystemUiVisibility(uiOptions);
         Intent intent = getIntent();
-        HP = intent.getIntExtra("HPgive", 10); //デバッグ用に初期値10
+        HP = intent.getIntExtra("HPgive", 100); //デバッグ用に初期値10
         Score = intent.getIntExtra("Scoregive",0);
         Clearflag = intent.getIntExtra("Clearflag",0);
         prevscore = Score;
@@ -176,9 +185,9 @@ public class Stage_2 extends AppCompatActivity {
         boxl.setScaleY(boxscaley);
         boxr.setScaleX(boxscalex);
         boxr.setScaleY(boxscaley);
-        boxn.setColorFilter(Color.rgb(50,50,255));
-        boxl.setColorFilter(Color.rgb(50,250,255));
-        boxr.setColorFilter(Color.rgb(250,50,255));
+        //boxn.setColorFilter(Color.rgb(50,50,255));
+        //boxl.setColorFilter(Color.rgb(50,250,255));
+        //boxr.setColorFilter(Color.rgb(250,50,255));
 
 
 
@@ -213,9 +222,78 @@ public class Stage_2 extends AppCompatActivity {
         }
         load = findViewById(R.id.load);
         load.setX(2000);
-
+        AudioAttributes audioAttributes = new AudioAttributes.Builder()
+                // USAGE_MEDIA
+                // USAGE_GAME
+                .setUsage(AudioAttributes.USAGE_GAME)
+                // CONTENT_TYPE_MUSIC
+                // CONTENT_TYPE_SPEECH, etc.
+                .setContentType(AudioAttributes.CONTENT_TYPE_SPEECH)
+                .build();
+        soundPool = new SoundPool.Builder()
+                .setAudioAttributes(audioAttributes)
+                // ストリーム数に応じて
+                .setMaxStreams(10)
+                .build();
+        jumpse = soundPool.load(this,R.raw.taa,0);
         //となりの建物から色々飛んでくるのを放物線の要領で計算して
         //傾いたバケツで受ける的な
+        BGM();
+        tst = rand.nextInt(255);
+        tst2 = rand.nextInt(255);
+        tst3 = rand.nextInt(255);
+        mono1.setColorFilter(Color.rgb(tst,tst2,tst3));
+        tst = rand.nextInt(255);
+        tst2 = rand.nextInt(255);
+        tst3 = rand.nextInt(255);
+        mono2.setColorFilter(Color.rgb(tst,tst2,tst3));
+        tst = rand.nextInt(255);
+        tst2 = rand.nextInt(255);
+        tst3 = rand.nextInt(255);
+        mono3.setColorFilter(Color.rgb(tst,tst2,tst3));
+        tst = rand.nextInt(255);
+        tst2 = rand.nextInt(255);
+        tst3 = rand.nextInt(255);
+        mono4.setColorFilter(Color.rgb(tst,tst2,tst3));
+        tst = rand.nextInt(255);
+        tst2 = rand.nextInt(255);
+        tst3 = rand.nextInt(255);
+        mono5.setColorFilter(Color.rgb(tst,tst2,tst3));
+        tst = rand.nextInt(255);
+        tst2 = rand.nextInt(255);
+        tst3 = rand.nextInt(255);
+        mono6.setColorFilter(Color.rgb(tst,tst2,tst3));
+        tst = rand.nextInt(255);
+        tst2 = rand.nextInt(255);
+        tst3 = rand.nextInt(255);
+        mono7.setColorFilter(Color.rgb(tst,tst2,tst3));
+        tst = rand.nextInt(255);
+        tst2 = rand.nextInt(255);
+        tst3 = rand.nextInt(255);
+        mono8.setColorFilter(Color.rgb(tst,tst2,tst3));
+        tst = rand.nextInt(255);
+        tst2 = rand.nextInt(255);
+        tst3 = rand.nextInt(255);
+        mono9.setColorFilter(Color.rgb(tst,tst2,tst3));
+        tst = rand.nextInt(255);
+        tst2 = rand.nextInt(255);
+        tst3 = rand.nextInt(255);
+        mono10.setColorFilter(Color.rgb(tst,tst2,tst3));
+        tst = rand.nextInt(255);
+        tst2 = rand.nextInt(255);
+        tst3 = rand.nextInt(255);
+        mono11.setColorFilter(Color.rgb(tst,tst2,tst3));
+        tst = rand.nextInt(255);
+        tst2 = rand.nextInt(255);
+        tst3 = rand.nextInt(255);
+        mono12.setColorFilter(Color.rgb(tst,tst2,tst3));
+
+
+    }
+    public void BGM(){ //仮置き
+        mainbgm = MediaPlayer.create(this,R.raw.mainbgm);
+
+        mainbgm.start();
     }
 
     public void game() {
@@ -314,7 +392,7 @@ public class Stage_2 extends AppCompatActivity {
         hito.setScaleY(2);
         hito.setX(hitox);
 
-        hito.setColorFilter(Color.rgb(150, 200, 200));
+        //hito.setColorFilter(Color.rgb(150, 200, 200));
         if (hitox <= 0) {
             hitox = 0;
             if (movex < 0) {
@@ -332,6 +410,7 @@ public class Stage_2 extends AppCompatActivity {
         if (movenum == 1 || movenum == 2 || movenum == 3) {
             if (jump == -jumptime) {
                 jump = jumptime;
+                soundPool.play(jumpse, 10, 10, 0, 0, 1.0f);
             }
         }
         if (jump > -jumptime) {
@@ -401,6 +480,78 @@ public class Stage_2 extends AppCompatActivity {
                 monomovex[i] = -(rand.nextInt(100) / 20);
                 monoy[i] = rand.nextInt(700) + 200;
                 monomovey[i] = -(rand.nextInt(100));
+                if(i == 0){
+                    tst = rand.nextInt(255);
+                    tst2 = rand.nextInt(255);
+                    tst3 = rand.nextInt(255);
+                    mono1.setColorFilter(Color.rgb(tst,tst2,tst3));
+                }
+                if(i == 1){
+                    tst = rand.nextInt(255);
+                    tst2 = rand.nextInt(255);
+                    tst3 = rand.nextInt(255);
+                    mono2.setColorFilter(Color.rgb(tst,tst2,tst3));
+                }
+                if(i == 2){
+                    tst = rand.nextInt(255);
+                    tst2 = rand.nextInt(255);
+                    tst3 = rand.nextInt(255);
+                    mono3.setColorFilter(Color.rgb(tst,tst2,tst3));
+                }
+                if(i == 3){
+                    tst = rand.nextInt(255);
+                    tst2 = rand.nextInt(255);
+                    tst3 = rand.nextInt(255);
+                    mono4.setColorFilter(Color.rgb(tst,tst2,tst3));
+                }
+                if(i == 4){
+                    tst = rand.nextInt(255);
+                    tst2 = rand.nextInt(255);
+                    tst3 = rand.nextInt(255);
+                    mono5.setColorFilter(Color.rgb(tst,tst2,tst3));
+                }
+                if(i == 5){
+                    tst = rand.nextInt(255);
+                    tst2 = rand.nextInt(255);
+                    tst3 = rand.nextInt(255);
+                    mono6.setColorFilter(Color.rgb(tst,tst2,tst3));
+                }
+                if(i == 6){
+                    tst = rand.nextInt(255);
+                    tst2 = rand.nextInt(255);
+                    tst3 = rand.nextInt(255);
+                    mono7.setColorFilter(Color.rgb(tst,tst2,tst3));
+                }
+                if(i == 7){
+                    tst = rand.nextInt(255);
+                    tst2 = rand.nextInt(255);
+                    tst3 = rand.nextInt(255);
+                    mono8.setColorFilter(Color.rgb(tst,tst2,tst3));
+                }
+                if(i == 8){
+                    tst = rand.nextInt(255);
+                    tst2 = rand.nextInt(255);
+                    tst3 = rand.nextInt(255);
+                    mono9.setColorFilter(Color.rgb(tst,tst2,tst3));
+                }
+                if(i == 9){
+                    tst = rand.nextInt(255);
+                    tst2 = rand.nextInt(255);
+                    tst3 = rand.nextInt(255);
+                    mono10.setColorFilter(Color.rgb(tst,tst2,tst3));
+                }
+                if(i == 10){
+                    tst = rand.nextInt(255);
+                    tst2 = rand.nextInt(255);
+                    tst3 = rand.nextInt(255);
+                    mono11.setColorFilter(Color.rgb(tst,tst2,tst3));
+                }
+                if(i == 11){
+                    tst = rand.nextInt(255);
+                    tst2 = rand.nextInt(255);
+                    tst3 = rand.nextInt(255);
+                    mono12.setColorFilter(Color.rgb(tst,tst2,tst3));
+                }
             }
         }
         for(int i = 0; i < obj; i++){
@@ -415,6 +566,78 @@ public class Stage_2 extends AppCompatActivity {
                 monomovex[i] = -(rand.nextInt(20) / 5 + 1);
                 monoy[i] = rand.nextInt(700) + 200;
                 monomovey[i] = -(rand.nextInt(100));
+                if(i == 0){
+                    tst = rand.nextInt(255);
+                    tst2 = rand.nextInt(255);
+                    tst3 = rand.nextInt(255);
+                    mono1.setColorFilter(Color.rgb(tst,tst2,tst3));
+                }
+                if(i == 1){
+                    tst = rand.nextInt(255);
+                    tst2 = rand.nextInt(255);
+                    tst3 = rand.nextInt(255);
+                    mono2.setColorFilter(Color.rgb(tst,tst2,tst3));
+                }
+                if(i == 2){
+                    tst = rand.nextInt(255);
+                    tst2 = rand.nextInt(255);
+                    tst3 = rand.nextInt(255);
+                    mono3.setColorFilter(Color.rgb(tst,tst2,tst3));
+                }
+                if(i == 3){
+                    tst = rand.nextInt(255);
+                    tst2 = rand.nextInt(255);
+                    tst3 = rand.nextInt(255);
+                    mono4.setColorFilter(Color.rgb(tst,tst2,tst3));
+                }
+                if(i == 4){
+                    tst = rand.nextInt(255);
+                    tst2 = rand.nextInt(255);
+                    tst3 = rand.nextInt(255);
+                    mono5.setColorFilter(Color.rgb(tst,tst2,tst3));
+                }
+                if(i == 5){
+                    tst = rand.nextInt(255);
+                    tst2 = rand.nextInt(255);
+                    tst3 = rand.nextInt(255);
+                    mono6.setColorFilter(Color.rgb(tst,tst2,tst3));
+                }
+                if(i == 6){
+                    tst = rand.nextInt(255);
+                    tst2 = rand.nextInt(255);
+                    tst3 = rand.nextInt(255);
+                    mono7.setColorFilter(Color.rgb(tst,tst2,tst3));
+                }
+                if(i == 7){
+                    tst = rand.nextInt(255);
+                    tst2 = rand.nextInt(255);
+                    tst3 = rand.nextInt(255);
+                    mono8.setColorFilter(Color.rgb(tst,tst2,tst3));
+                }
+                if(i == 8){
+                    tst = rand.nextInt(255);
+                    tst2 = rand.nextInt(255);
+                    tst3 = rand.nextInt(255);
+                    mono9.setColorFilter(Color.rgb(tst,tst2,tst3));
+                }
+                if(i == 9){
+                    tst = rand.nextInt(255);
+                    tst2 = rand.nextInt(255);
+                    tst3 = rand.nextInt(255);
+                    mono10.setColorFilter(Color.rgb(tst,tst2,tst3));
+                }
+                if(i == 10){
+                    tst = rand.nextInt(255);
+                    tst2 = rand.nextInt(255);
+                    tst3 = rand.nextInt(255);
+                    mono11.setColorFilter(Color.rgb(tst,tst2,tst3));
+                }
+                if(i == 11){
+                    tst = rand.nextInt(255);
+                    tst2 = rand.nextInt(255);
+                    tst3 = rand.nextInt(255);
+                    mono12.setColorFilter(Color.rgb(tst,tst2,tst3));
+                }
             }
         }
 
@@ -437,6 +660,78 @@ public class Stage_2 extends AppCompatActivity {
                     monomovey[i] = -(rand.nextInt(100));
                     Score += 900;
                     HP += 2;
+                    if(i == 0){
+                        tst = rand.nextInt(255);
+                        tst2 = rand.nextInt(255);
+                        tst3 = rand.nextInt(255);
+                        mono1.setColorFilter(Color.rgb(tst,tst2,tst3));
+                    }
+                    if(i == 1){
+                        tst = rand.nextInt(255);
+                        tst2 = rand.nextInt(255);
+                        tst3 = rand.nextInt(255);
+                        mono2.setColorFilter(Color.rgb(tst,tst2,tst3));
+                    }
+                    if(i == 2){
+                        tst = rand.nextInt(255);
+                        tst2 = rand.nextInt(255);
+                        tst3 = rand.nextInt(255);
+                        mono3.setColorFilter(Color.rgb(tst,tst2,tst3));
+                    }
+                    if(i == 3){
+                        tst = rand.nextInt(255);
+                        tst2 = rand.nextInt(255);
+                        tst3 = rand.nextInt(255);
+                        mono4.setColorFilter(Color.rgb(tst,tst2,tst3));
+                    }
+                    if(i == 4){
+                        tst = rand.nextInt(255);
+                        tst2 = rand.nextInt(255);
+                        tst3 = rand.nextInt(255);
+                        mono5.setColorFilter(Color.rgb(tst,tst2,tst3));
+                    }
+                    if(i == 5){
+                        tst = rand.nextInt(255);
+                        tst2 = rand.nextInt(255);
+                        tst3 = rand.nextInt(255);
+                        mono6.setColorFilter(Color.rgb(tst,tst2,tst3));
+                    }
+                    if(i == 6){
+                        tst = rand.nextInt(255);
+                        tst2 = rand.nextInt(255);
+                        tst3 = rand.nextInt(255);
+                        mono7.setColorFilter(Color.rgb(tst,tst2,tst3));
+                    }
+                    if(i == 7){
+                        tst = rand.nextInt(255);
+                        tst2 = rand.nextInt(255);
+                        tst3 = rand.nextInt(255);
+                        mono8.setColorFilter(Color.rgb(tst,tst2,tst3));
+                    }
+                    if(i == 8){
+                        tst = rand.nextInt(255);
+                        tst2 = rand.nextInt(255);
+                        tst3 = rand.nextInt(255);
+                        mono9.setColorFilter(Color.rgb(tst,tst2,tst3));
+                    }
+                    if(i == 9){
+                        tst = rand.nextInt(255);
+                        tst2 = rand.nextInt(255);
+                        tst3 = rand.nextInt(255);
+                        mono10.setColorFilter(Color.rgb(tst,tst2,tst3));
+                    }
+                    if(i == 10){
+                        tst = rand.nextInt(255);
+                        tst2 = rand.nextInt(255);
+                        tst3 = rand.nextInt(255);
+                        mono11.setColorFilter(Color.rgb(tst,tst2,tst3));
+                    }
+                    if(i == 11){
+                        tst = rand.nextInt(255);
+                        tst2 = rand.nextInt(255);
+                        tst3 = rand.nextInt(255);
+                        mono12.setColorFilter(Color.rgb(tst,tst2,tst3));
+                    }
                 }
 
             } else if (movex <= -3) { //-3
@@ -457,6 +752,78 @@ public class Stage_2 extends AppCompatActivity {
                     monomovey[i] = -(rand.nextInt(100));
                     Score += 900;
                     HP += 2;
+                    if(i == 0){
+                        tst = rand.nextInt(255);
+                        tst2 = rand.nextInt(255);
+                        tst3 = rand.nextInt(255);
+                        mono1.setColorFilter(Color.rgb(tst,tst2,tst3));
+                    }
+                    if(i == 1){
+                        tst = rand.nextInt(255);
+                        tst2 = rand.nextInt(255);
+                        tst3 = rand.nextInt(255);
+                        mono2.setColorFilter(Color.rgb(tst,tst2,tst3));
+                    }
+                    if(i == 2){
+                        tst = rand.nextInt(255);
+                        tst2 = rand.nextInt(255);
+                        tst3 = rand.nextInt(255);
+                        mono3.setColorFilter(Color.rgb(tst,tst2,tst3));
+                    }
+                    if(i == 3){
+                        tst = rand.nextInt(255);
+                        tst2 = rand.nextInt(255);
+                        tst3 = rand.nextInt(255);
+                        mono4.setColorFilter(Color.rgb(tst,tst2,tst3));
+                    }
+                    if(i == 4){
+                        tst = rand.nextInt(255);
+                        tst2 = rand.nextInt(255);
+                        tst3 = rand.nextInt(255);
+                        mono5.setColorFilter(Color.rgb(tst,tst2,tst3));
+                    }
+                    if(i == 5){
+                        tst = rand.nextInt(255);
+                        tst2 = rand.nextInt(255);
+                        tst3 = rand.nextInt(255);
+                        mono6.setColorFilter(Color.rgb(tst,tst2,tst3));
+                    }
+                    if(i == 6){
+                        tst = rand.nextInt(255);
+                        tst2 = rand.nextInt(255);
+                        tst3 = rand.nextInt(255);
+                        mono7.setColorFilter(Color.rgb(tst,tst2,tst3));
+                    }
+                    if(i == 7){
+                        tst = rand.nextInt(255);
+                        tst2 = rand.nextInt(255);
+                        tst3 = rand.nextInt(255);
+                        mono8.setColorFilter(Color.rgb(tst,tst2,tst3));
+                    }
+                    if(i == 8){
+                        tst = rand.nextInt(255);
+                        tst2 = rand.nextInt(255);
+                        tst3 = rand.nextInt(255);
+                        mono9.setColorFilter(Color.rgb(tst,tst2,tst3));
+                    }
+                    if(i == 9){
+                        tst = rand.nextInt(255);
+                        tst2 = rand.nextInt(255);
+                        tst3 = rand.nextInt(255);
+                        mono10.setColorFilter(Color.rgb(tst,tst2,tst3));
+                    }
+                    if(i == 10){
+                        tst = rand.nextInt(255);
+                        tst2 = rand.nextInt(255);
+                        tst3 = rand.nextInt(255);
+                        mono11.setColorFilter(Color.rgb(tst,tst2,tst3));
+                    }
+                    if(i == 11){
+                        tst = rand.nextInt(255);
+                        tst2 = rand.nextInt(255);
+                        tst3 = rand.nextInt(255);
+                        mono12.setColorFilter(Color.rgb(tst,tst2,tst3));
+                    }
                 }
 
 
@@ -479,6 +846,78 @@ public class Stage_2 extends AppCompatActivity {
                     monomovey[i] = -(rand.nextInt(100));
                     Score += 900;
                     HP += 2;
+                    if(i == 0){
+                        tst = rand.nextInt(255);
+                        tst2 = rand.nextInt(255);
+                        tst3 = rand.nextInt(255);
+                        mono1.setColorFilter(Color.rgb(tst,tst2,tst3));
+                    }
+                    if(i == 1){
+                        tst = rand.nextInt(255);
+                        tst2 = rand.nextInt(255);
+                        tst3 = rand.nextInt(255);
+                        mono2.setColorFilter(Color.rgb(tst,tst2,tst3));
+                    }
+                    if(i == 2){
+                        tst = rand.nextInt(255);
+                        tst2 = rand.nextInt(255);
+                        tst3 = rand.nextInt(255);
+                        mono3.setColorFilter(Color.rgb(tst,tst2,tst3));
+                    }
+                    if(i == 3){
+                        tst = rand.nextInt(255);
+                        tst2 = rand.nextInt(255);
+                        tst3 = rand.nextInt(255);
+                        mono4.setColorFilter(Color.rgb(tst,tst2,tst3));
+                    }
+                    if(i == 4){
+                        tst = rand.nextInt(255);
+                        tst2 = rand.nextInt(255);
+                        tst3 = rand.nextInt(255);
+                        mono5.setColorFilter(Color.rgb(tst,tst2,tst3));
+                    }
+                    if(i == 5){
+                        tst = rand.nextInt(255);
+                        tst2 = rand.nextInt(255);
+                        tst3 = rand.nextInt(255);
+                        mono6.setColorFilter(Color.rgb(tst,tst2,tst3));
+                    }
+                    if(i == 6){
+                        tst = rand.nextInt(255);
+                        tst2 = rand.nextInt(255);
+                        tst3 = rand.nextInt(255);
+                        mono7.setColorFilter(Color.rgb(tst,tst2,tst3));
+                    }
+                    if(i == 7){
+                        tst = rand.nextInt(255);
+                        tst2 = rand.nextInt(255);
+                        tst3 = rand.nextInt(255);
+                        mono8.setColorFilter(Color.rgb(tst,tst2,tst3));
+                    }
+                    if(i == 8){
+                        tst = rand.nextInt(255);
+                        tst2 = rand.nextInt(255);
+                        tst3 = rand.nextInt(255);
+                        mono9.setColorFilter(Color.rgb(tst,tst2,tst3));
+                    }
+                    if(i == 9){
+                        tst = rand.nextInt(255);
+                        tst2 = rand.nextInt(255);
+                        tst3 = rand.nextInt(255);
+                        mono10.setColorFilter(Color.rgb(tst,tst2,tst3));
+                    }
+                    if(i == 10){
+                        tst = rand.nextInt(255);
+                        tst2 = rand.nextInt(255);
+                        tst3 = rand.nextInt(255);
+                        mono11.setColorFilter(Color.rgb(tst,tst2,tst3));
+                    }
+                    if(i == 11){
+                        tst = rand.nextInt(255);
+                        tst2 = rand.nextInt(255);
+                        tst3 = rand.nextInt(255);
+                        mono12.setColorFilter(Color.rgb(tst,tst2,tst3));
+                    }
                 }
             }
         }
@@ -618,6 +1057,7 @@ public class Stage_2 extends AppCompatActivity {
             load.setScaleY(2);
             load.setText("ロード中...\nしばし待たれよ!");
             timer.cancel();
+            mainbgm.stop();
             intent.putExtra("HPgive",HP);
             intent.putExtra("Scoregive",Score);
             intent.putExtra("MapID",2);
@@ -629,8 +1069,8 @@ public class Stage_2 extends AppCompatActivity {
             startActivity(intent);
 
         }
-
-
+        zimen.setScaleX(40);
+        ball.setColorFilter(Color.rgb(230,230,230));
     }//ループ終わり
 
 

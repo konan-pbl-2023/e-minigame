@@ -23,6 +23,16 @@
         app:layout_constraintVertical_bias="0.558"
         app:srcCompat="@drawable/ic_launcher_background" />
 
+    <ImageView
+        android:id="@+id/st5"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/st5" />
+
     <TextView
         android:id="@+id/score"
         android:layout_width="wrap_content"
@@ -218,18 +228,6 @@
         app:srcCompat="@android:drawable/title_bar" />
 
     <ImageView
-        android:id="@+id/zimen"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.125"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.896"
-        app:srcCompat="@android:drawable/title_bar" />
-
-    <ImageView
         android:id="@+id/hidariue"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -325,43 +323,6 @@
         app:layout_constraintVertical_bias="0.431"
         app:srcCompat="@android:drawable/title_bar" />
 
-    <ImageView
-        android:id="@+id/boxnormal"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:rotation="0"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.911"
-        app:srcCompat="@android:drawable/title_bar" />
-
-    <ImageView
-        android:id="@+id/boxhidari"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.632"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.911"
-        app:srcCompat="@android:drawable/title_bar" />
-
-    <ImageView
-        android:id="@+id/boxmigi"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.75"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.897"
-        app:srcCompat="@android:drawable/title_bar" />
-
     <TextView
         android:id="@+id/load"
         android:layout_width="wrap_content"
@@ -395,7 +356,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.312"
-        app:srcCompat="@android:drawable/title_bar" />
+        app:srcCompat="@drawable/dragon" />
 
     <ImageView
         android:id="@+id/dragons"
@@ -407,7 +368,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.258"
-        app:srcCompat="@android:drawable/title_bar" />
+        app:srcCompat="@drawable/dragon" />
 
     <ImageView
         android:id="@+id/bullet1"
@@ -623,6 +584,6 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@android:drawable/title_bar" />
+        app:srcCompat="@drawable/mainpe" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
