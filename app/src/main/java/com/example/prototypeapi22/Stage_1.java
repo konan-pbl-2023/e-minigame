@@ -24,6 +24,9 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.graphics.Color;
+import android.media.AudioAttributes;
+import android.media.MediaPlayer;
+import android.media.SoundPool;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
@@ -92,6 +95,10 @@ public class Stage_1 extends AppCompatActivity {
     int prevscore = 0;
     int v;
     int Clearflag;
+    SoundPool soundPool;
+    int fishse;
+    MediaPlayer mainbgm;
+    ImageView st1;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -109,7 +116,10 @@ public class Stage_1 extends AppCompatActivity {
         score = intent.getIntExtra("Scoregive",0);
         Clearflag = intent.getIntExtra("Clearflag",0);
         prevscore = score;
-
+        st1 = findViewById(R.id.st1);
+        st1.setScaleX(1.1f);
+        st1.setScaleY(1.1f);
+        st1.setY(50);
         ue = findViewById(R.id.ue); //水上の画像、仮置き
         ue.setX(-100);
         ue.setY(-200);
@@ -287,8 +297,29 @@ public class Stage_1 extends AppCompatActivity {
         timetext = findViewById(R.id.time);
         load = findViewById(R.id.load);
         load.setX(2000);
-    } //onCreate終わり
 
+
+        BGM();
+        AudioAttributes audioAttributes = new AudioAttributes.Builder()
+                // USAGE_MEDIA
+                // USAGE_GAME
+                .setUsage(AudioAttributes.USAGE_GAME)
+                // CONTENT_TYPE_MUSIC
+                // CONTENT_TYPE_SPEECH, etc.
+                .setContentType(AudioAttributes.CONTENT_TYPE_SPEECH)
+                .build();
+        soundPool = new SoundPool.Builder()
+                .setAudioAttributes(audioAttributes)
+                // ストリーム数に応じて
+                .setMaxStreams(10)
+                .build();
+        fishse = soundPool.load(this,R.raw.sakana,0);
+    } //onCreate終わり
+    public void BGM(){ //仮置き
+        mainbgm = MediaPlayer.create(this,R.raw.mainbgm);
+
+        mainbgm.start();
+    }
     public void moveturiito(){ //gameがはじめられた時に始動
 
         comment.setX(50);
@@ -671,6 +702,7 @@ public class Stage_1 extends AppCompatActivity {
             tottatext.setText("赤い魚を\n釣り上げた!!");
             combo += 1;
             score += 100 * xscore;
+            soundPool.play(fishse, 3.0f, 3.0f, 0, 0, 1.0f);
         }
         tst = fishx[3] - 2 * 84; //口の大体の座標
         tst2 = fishy[3];
@@ -691,6 +723,7 @@ public class Stage_1 extends AppCompatActivity {
             tottatext.setText("赤い魚を\n釣り上げた!!");
             combo += 1;
             score += 100 * xscore;
+            soundPool.play(fishse, 3.0f, 3.0f, 0, 0, 1.0f);
         }
         tst = fishx[1] + 5 * 42; //口の大体の座標
         tst2 = fishy[1];
@@ -711,6 +744,7 @@ public class Stage_1 extends AppCompatActivity {
             tottatext.setText("青い魚を\n釣り上げた!!");
             combo += 1;
             score += 200 * xscore;
+            soundPool.play(fishse, 3.0f, 3.0f, 0, 0, 1.0f);
         }
         tst = fishx[4] - 5 * 42; //口の大体の座標
         tst2 = fishy[4];
@@ -731,6 +765,7 @@ public class Stage_1 extends AppCompatActivity {
             tottatext.setText("青い魚を\n釣り上げた!!");
             combo += 1;
             score += 200 * xscore;
+            soundPool.play(fishse, 3.0f, 3.0f, 0, 0, 1.0f);
         }
         tst = fishx[2] +84; //口の大体の座標
         tst2 = fishy[2];
@@ -752,6 +787,7 @@ public class Stage_1 extends AppCompatActivity {
             combo += 1;
             score += 500 * xscore;
             hp += 5;
+            soundPool.play(fishse, 3.0f, 3.0f, 0, 0, 1.0f);
         }
         tst = fishx[5] - 84; //口の大体の座標
         tst2 = fishy[5];
@@ -773,6 +809,7 @@ public class Stage_1 extends AppCompatActivity {
             combo += 1;
             score += 500 * xscore;
             hp += 5;
+            soundPool.play(fishse, 3.0f, 3.0f, 0, 0, 1.0f);
         }
         if((550 - fishx[7])*(550 - fishx[7])  + (tst3 - fishy[7]) *(tst3 - fishy[7]) < 10000){
             fishx[7] = 600;
@@ -781,6 +818,7 @@ public class Stage_1 extends AppCompatActivity {
             tottatext.setText("空き缶を\n釣り上げた!!");
             combo += 1;
             score += 600 * xscore;
+            soundPool.play(fishse, 3.0f, 3.0f, 0, 0, 1.0f);
         }
         if((550 - fishx[8])*(550 - fishx[8])  + (tst3 - fishy[8]) *(tst3 - fishy[8]) < 10000){
             fishx[8] = 600;
@@ -789,6 +827,7 @@ public class Stage_1 extends AppCompatActivity {
             tottatext.setText("ビニール袋を\n釣り上げた!!");
             combo += 1;
             score += 800 * xscore;
+            soundPool.play(fishse, 3.0f, 3.0f, 0, 0, 1.0f);
         }
         tst = fishx[9] + 3 *84; //口の大体の座標
         tst2 = fishy[9];
@@ -810,6 +849,7 @@ public class Stage_1 extends AppCompatActivity {
             combo = 0;
             score -= 1000 * xscore;
             hp -= 40;
+            soundPool.play(fishse, 3.0f, 3.0f, 0, 0, 1.0f);
         }
         tst = fishx[10] - 3 * 84; //口の大体の座標
         tst2 = fishy[10];
@@ -831,6 +871,7 @@ public class Stage_1 extends AppCompatActivity {
             combo = 0;
             score -= 1000 * xscore;
             hp -= 40;
+            soundPool.play(fishse, 3.0f, 3.0f, 0, 0, 1.0f);
         }
 
 
@@ -860,6 +901,7 @@ public class Stage_1 extends AppCompatActivity {
             load.setScaleY(2);
             load.setText("ロード中...\nしばし待たれよ!");
             timer.cancel();
+            mainbgm.stop();
             intent.putExtra("HPgive",hp);
             intent.putExtra("Scoregive",score);
             intent.putExtra("MapID",1);

@@ -12,6 +12,9 @@ import android.graphics.BitmapFactory;
 import android.graphics.Bitmap.Config;
 import android.graphics.Color;
 import android.graphics.Path;
+import android.media.AudioAttributes;
+import android.media.MediaPlayer;
+import android.media.SoundPool;
 import android.os.Bundle;
 import android.view.Display;
 import android.view.View;
@@ -153,6 +156,14 @@ public class Stage_5 extends AppCompatActivity {
     int tst4;
     int bonuscnt = 0; //低確率で撃破時ボーナス点を2重にとるバグが起きる可能性があるので
     //(200フレームルールの弊害)
+    int debug;
+    int nomiss;
+    SoundPool soundPool;
+    int jumpse;
+    MediaPlayer mainbgm;
+    int bulletse;
+    int hitse;
+    ImageView st5;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -167,11 +178,13 @@ public class Stage_5 extends AppCompatActivity {
         HP = intent.getIntExtra("HPgive", 100); //デバッグ用に初期値10
         Score = intent.getIntExtra("Scoregive",10000);
         Clearflag = intent.getIntExtra("Clearflag",0);
+        debug = intent.getIntExtra("debugmode",0);
+        nomiss = intent.getIntExtra("nomissflag",0);
         prevscore = Score;
         timetext = findViewById(R.id.timetext);
 
         load = findViewById(R.id.load);
-
+        BGM();
         //ボタン機能
         hidariue = findViewById(R.id.hidariue);
         ue = findViewById(R.id.ue);
@@ -183,6 +196,9 @@ public class Stage_5 extends AppCompatActivity {
         hidari = findViewById(R.id.hidari);
         mannaka = findViewById(R.id.mannaka);
 
+        st5 = findViewById(R.id.st5);
+        st5.setScaleX(1.5f);
+        st5.setScaleY(1.5f);
         //ボタンのデフォルト設定
         bx = 600; //buttonX
         by = 1500; //buttonY
@@ -342,10 +358,38 @@ public class Stage_5 extends AppCompatActivity {
         dragonhp = findViewById(R.id.dragonhp);
         dragons = findViewById(R.id.dragons);
         load.setX(2000);
+
+        AudioAttributes audioAttributes = new AudioAttributes.Builder()
+                // USAGE_MEDIA
+                // USAGE_GAME
+                .setUsage(AudioAttributes.USAGE_GAME)
+                // CONTENT_TYPE_MUSIC
+                // CONTENT_TYPE_SPEECH, etc.
+                .setContentType(AudioAttributes.CONTENT_TYPE_SPEECH)
+                .build();
+        soundPool = new SoundPool.Builder()
+                .setAudioAttributes(audioAttributes)
+                // ストリーム数に応じて
+                .setMaxStreams(10)
+                .build();
+        jumpse = soundPool.load(this,R.raw.taa,0);
+        bulletse = soundPool.load(this,R.raw.shot,0);
+        hitse = soundPool.load(this,R.raw.hitse,0);
     } //onCreate終わり
+
+    public void BGM(){
+
+        mainbgm = MediaPlayer.create(this,R.raw.mainbgm);
+        mainbgm.start();
+    }
 
     public void game(){
         //ボタン処理開始
+        //if(mainbgm.isPlaying()){
+        //    tst = tst;
+        //}else{
+        //    mainbgm.start();
+        //}
         float gosax = intex / 4; //なぜか若干誤差が出る(マウスカーソルの当たり判定とタップの判定が違う？)
         float gosay = intey / 4;  //ので調整用,大きさ2倍ならそれぞれinte(x or y)/4
         //当たり判定違う理由わかった、これ座標の基準の点真ん中じゃなくて左上だわ
@@ -438,7 +482,7 @@ public class Stage_5 extends AppCompatActivity {
         hito.setScaleY(2);
         hito.setX(hitox);
 
-        hito.setColorFilter(Color.rgb(150, 200, 200));
+        //hito.setColorFilter(Color.rgb(150, 200, 200));
         if (hitox <= 0) {
             hitox = 0;
             if (movex < 0) {
@@ -457,6 +501,7 @@ public class Stage_5 extends AppCompatActivity {
             if (zimenride == 1) {
                 zimenride = 0;
                 jump = jumptime;
+                soundPool.play(jumpse, 10, 10, 0, 0, 1.0f);
             }
         }
         //if (jump > -jumptime) {
@@ -607,6 +652,7 @@ public class Stage_5 extends AppCompatActivity {
             tst = bulletnum % 16;
             bullet[tst] = (int)hitox;
             bullety[tst] = (int)hitoy;
+            soundPool.play(bulletse, 10, 10, 0, 0, 1.0f);
             if(tst == 0){
                 tst2 = rand.nextInt(255);
                 tst3 = rand.nextInt(255);
@@ -714,6 +760,10 @@ public class Stage_5 extends AppCompatActivity {
                 dragonhpnum -= 500;
                 dragonhit = 80;
                 Score += 100;
+                soundPool.play(hitse, 10, 10, 0, 0, 1.0f);
+                if(debug == 1){
+                    dragonhpnum -= 49500;
+                }
             }
         }
 
@@ -791,6 +841,7 @@ public class Stage_5 extends AppCompatActivity {
             load.setScaleY(2);
             load.setText("ロード中...\nしばし待たれよ!");
             timer.cancel();
+            mainbgm.stop();
             if(dragonhpnum <= 0 && bonuscnt == 0){
                 Score += 50000;
                 bonuscnt = 1;
@@ -806,6 +857,13 @@ public class Stage_5 extends AppCompatActivity {
             startActivity(intent);
 
         }
+        dragon.setX(900);
+        dragonx = 900;
+        timetext.setTextColor(Color.rgb(255,255,255));
+        hptext.setTextColor(Color.rgb(255,255,255));
+        dragonhp.setTextColor(Color.rgb(255,255,255));
+        poison.setColorFilter(Color.rgb(60,0,60));
+        scoretext.setTextColor(Color.rgb(255,255,255));
     }
 
 
@@ -845,14 +903,14 @@ public class Stage_5 extends AppCompatActivity {
         poison.setY(1846);
         poison.setScaleX(20);
         poison.setScaleY(5);
-        poison.setColorFilter(Color.rgb(255,0,255));
+        //poison.setColorFilter(Color.rgb(255,0,255));
 
 
 
 
         //ボタン関係の処理終わり
         if(gamestart == 0){ //最初だけgameを起動
-            dragon.setX(1000);
+            dragon.setX(900);
             dragon.setY(900);
             gamestart = 1;
             time = 12000; //デバッグ終わったら12000予定
