@@ -267,6 +267,8 @@ public class Map extends AppCompatActivity {
                 .setMaxStreams(10)
                 .build();
         buttonse = soundPool.load(this,R.raw.buttonse,0);
+        hito.setScaleY(4);
+        hito.setScaleX(2);
 
     }
     public void BGM(){
