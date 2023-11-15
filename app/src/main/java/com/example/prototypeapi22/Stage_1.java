@@ -99,6 +99,7 @@ public class Stage_1 extends AppCompatActivity {
     int fishse;
     MediaPlayer mainbgm;
     ImageView st1;
+    int nomiss;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -115,6 +116,7 @@ public class Stage_1 extends AppCompatActivity {
         hp = intent.getIntExtra("HPgive", 0);
         score = intent.getIntExtra("Scoregive",0);
         Clearflag = intent.getIntExtra("Clearflag",0);
+        nomiss = intent.getIntExtra("nomissflag",0);
         prevscore = score;
         st1 = findViewById(R.id.st1);
         st1.setScaleX(1.1f);
@@ -906,6 +908,13 @@ public class Stage_1 extends AppCompatActivity {
             intent.putExtra("Scoregive",score);
             intent.putExtra("MapID",1);
             intent.putExtra("Prevscore",prevscore);
+            if(hp > 0 && score - prevscore >= 10000){
+
+            }else{
+                nomiss = 1;
+            }
+            intent.putExtra("nomissflag",nomiss);
+
             if(Clearflag % 2 != 0 && hp > 0 && score >= 10000){
                 Clearflag *= 2;
             }

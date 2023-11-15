@@ -109,6 +109,7 @@ public class Stage_2 extends AppCompatActivity {
     int tst2;
     int tst3;
     MediaPlayer mainbgm;
+    int nomiss;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -121,6 +122,7 @@ public class Stage_2 extends AppCompatActivity {
         HP = intent.getIntExtra("HPgive", 100); //デバッグ用に初期値10
         Score = intent.getIntExtra("Scoregive",0);
         Clearflag = intent.getIntExtra("Clearflag",0);
+        nomiss = intent.getIntExtra("nomissflag",0);
         prevscore = Score;
         timetext = findViewById(R.id.timetext);
 
@@ -1062,6 +1064,13 @@ public class Stage_2 extends AppCompatActivity {
             intent.putExtra("Scoregive",Score);
             intent.putExtra("MapID",2);
             intent.putExtra("Prevscore",prevscore);
+            if(HP > 0 && Score - prevscore >= 10000){
+
+            }else{
+                nomiss = 1;
+            }
+            intent.putExtra("nomissflag",nomiss);
+
             if(Clearflag % 3 != 0 && HP > 0 && Score >= 10000){
                 Clearflag *= 3;
             }

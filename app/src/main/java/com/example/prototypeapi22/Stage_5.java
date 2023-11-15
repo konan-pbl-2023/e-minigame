@@ -846,11 +846,17 @@ public class Stage_5 extends AppCompatActivity {
                 Score += 50000;
                 bonuscnt = 1;
             }
+            if(HP > 0 && Score - prevscore >= 10000){
+
+            }else{
+                nomiss = 1;
+            }
             intent.putExtra("HPgive",HP);
             intent.putExtra("Scoregive",Score);
             intent.putExtra("MapID",5);
             intent.putExtra("Prevscore",prevscore);
-            if(Clearflag % 11 != 0 && HP > 0 && Score >= 10000){
+            intent.putExtra("nomissflag",nomiss);
+            if(Clearflag % 11 != 0 && HP > 0 && Score - prevscore >= 10000){
                 Clearflag *= 11;
             }
             intent.putExtra("Clearflag",Clearflag);
