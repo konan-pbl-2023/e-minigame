@@ -10,6 +10,9 @@ import android.graphics.BitmapFactory;
 import android.graphics.Bitmap.Config;
 import android.graphics.Color;
 import android.graphics.Path;
+import android.media.AudioAttributes;
+import android.media.MediaPlayer;
+import android.media.SoundPool;
 import android.os.Bundle;
 import android.view.Display;
 import android.view.View;
@@ -44,29 +47,92 @@ public class Ending extends AppCompatActivity {
     float endingScale = (float)1.5; //文字の大きさ
     //少数を入れる場合は(float)を数字の前につけないと動かないので注意
     int endingspeed = 5; //文字の流れる速さ
+    SoundPool soundPool;
+    MediaPlayer mainbgm;
+    int MapID;
+    int HP;
+    int Score;
+    int Clearflag;
+    int nomiss;
+    Button titleButton;
+    int buttonse;
+    int buttony;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_ending);
+        Intent intent = getIntent();
+        MapID = intent.getIntExtra("MapID",0);
+        HP = intent.getIntExtra("HPgive", 100);
+        Score = intent.getIntExtra("Scoregive",0);
+        Clearflag = intent.getIntExtra("Clearflag",1); //Clearflagに関しては受け取る意味ないと思うけど
+        nomiss = intent.getIntExtra("nomissflag",0); //２エンド分けたかったけど明後日までに揃うんか...？
+
         //Homeボタンなど消しのおまじない
         View decorView = getWindow().getDecorView();
         int uiOptions = View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
                 | View.SYSTEM_UI_FLAG_FULLSCREEN;
         decorView.setSystemUiVisibility(uiOptions);
+        AudioAttributes audioAttributes = new AudioAttributes.Builder()
+                // USAGE_MEDIA
+                // USAGE_GAME
+                .setUsage(AudioAttributes.USAGE_GAME)
+                // CONTENT_TYPE_MUSIC
+                // CONTENT_TYPE_SPEECH, etc.
+                .setContentType(AudioAttributes.CONTENT_TYPE_SPEECH)
+                .build();
+        soundPool = new SoundPool.Builder()
+                .setAudioAttributes(audioAttributes)
+                // ストリーム数に応じて
+                .setMaxStreams(10)
+                .build();
+        buttonse = soundPool.load(this,R.raw.buttonse,0);
         ending = findViewById(R.id.ending);
         ending.setScaleX(endingScale); //文字の大きさ
         ending.setScaleY(endingScale);
         //ここにif文を挟んでエンディング分岐簡単に！
-        ending.setText("テスト文\nで改行" +
-                "横に長すぎるようならこうやっても" +
-                "\n問題なく繋がる");
+        if(nomiss == 0) {
+            ending.setText("テスト文\nで改行" +
+                    "横に長すぎるようならこうやっても" +
+                    "\n問題なく繋がる");
+        }else{
+            ending.setText("こっちはノーミス失敗時");
+        }
+        titleButton = findViewById(R.id.titlebutton);
 
+        titleButton.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                soundPool.play(buttonse, 3.0f, 3.0f, 0, 0, 1.0f);
+                Intent intent = new Intent(getApplication(), MainActivity.class);
+                //intent.putExtra("RoomID", 0);
+                //intent.putExtra("HPgive",100);
+                //intent.putExtra("Scoregive",0);
+                intent.putExtra("Clearflag",Clearflag);
+                mainbgm.stop();
+                startActivity(intent);
+
+            }
+
+
+        });
+        BGM();
+        buttony = 3000;
         //ifここまで
+    }
+
+    public void BGM(){
+        //仮置きでmainbgmを置いています(ほかのステージで使ったやつ)
+
+        mainbgm = MediaPlayer.create(this,R.raw.mainbgm);
+
+        mainbgm.start();
     }
 
     public void game(){
         endingy -= endingspeed;
         ending.setY(endingy);
+        buttony -= endingspeed;
+        titleButton.setY(buttony);
     }
 
     @Override
@@ -80,7 +146,7 @@ public class Ending extends AppCompatActivity {
 
         }
         if (gamestart == 0) { //最初だけgameを起動
-
+            titleButton.setY(buttony);
             gamestart = 1;
             ending.setX(endingx); //文字の初期位置
             ending.setY(endingy);

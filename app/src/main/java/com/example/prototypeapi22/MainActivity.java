@@ -44,8 +44,13 @@ public class MainActivity extends AppCompatActivity {
     ImageView titleimg;
     TextView titletxt;
     TextView titletxt2;
+    int Clearflag;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
+        Intent intent = getIntent();
+
+        Clearflag = intent.getIntExtra("Clearflag",1);
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
