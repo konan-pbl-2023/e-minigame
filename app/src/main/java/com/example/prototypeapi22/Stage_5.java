@@ -164,6 +164,9 @@ public class Stage_5 extends AppCompatActivity {
     int bulletse;
     int hitse;
     ImageView st5;
+    ImageView back;
+    ImageView wback;
+    TextView setumei;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -185,6 +188,25 @@ public class Stage_5 extends AppCompatActivity {
 
         load = findViewById(R.id.load);
         BGM();
+
+        back = findViewById(R.id.back);
+        //back.setColorFilter(Color.rgb(255,255,255));
+        back.setScaleX(1.65f);
+        back.setScaleY(1.65f);
+        //back.setY(0);
+        setumei = findViewById(R.id.setumei);
+        setumei.setScaleX(1.5f);
+        setumei.setScaleY(1.5f);
+        setumei.setY(750);
+
+        wback = findViewById(R.id.wback);
+        wback.setScaleY(6);
+        wback.setScaleX(20);
+        wback.setY(770);
+        wback.setColorFilter(Color.rgb(255,255,255));
+        //setumei.setTextColor(Color.rgb(255,255,255));
+        setumei.setText("VSドラゴン\n真ん中ボタンで攻撃！\n床は毒沼で徐々にダメージ\n" +
+                "遅くなる所を狙いましょう\nドラゴンとの接触注意！");
         //ボタン機能
         hidariue = findViewById(R.id.hidariue);
         ue = findViewById(R.id.ue);
@@ -924,6 +946,9 @@ public class Stage_5 extends AppCompatActivity {
             dragonhp.setY(50);
             dragonhp.setScaleX(2);
             dragonhp.setScaleY(2);
+            setumei.setX(3000);
+            back.setX(3000);
+            wback.setX(2000);
             dragonhpnum = 50000; //50000
             dragonhp.setTextColor(Color.rgb(250,0,0));
             dragons.setScaleX(4);
