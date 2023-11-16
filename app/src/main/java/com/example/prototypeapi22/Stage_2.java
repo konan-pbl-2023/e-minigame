@@ -110,6 +110,9 @@ public class Stage_2 extends AppCompatActivity {
     int tst3;
     MediaPlayer mainbgm;
     int nomiss;
+    ImageView back;
+    TextView setumei;
+    ImageView wback;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -125,6 +128,25 @@ public class Stage_2 extends AppCompatActivity {
         nomiss = intent.getIntExtra("nomissflag",0);
         prevscore = Score;
         timetext = findViewById(R.id.timetext);
+
+        back = findViewById(R.id.back);
+        //back.setColorFilter(Color.rgb(255,255,255));
+        back.setScaleX(1.65f);
+        back.setScaleY(1.65f);
+        //back.setY(0);
+        setumei = findViewById(R.id.setumei);
+        setumei.setScaleX(1.5f);
+        setumei.setScaleY(1.5f);
+        setumei.setY(750);
+
+        wback = findViewById(R.id.wback);
+        wback.setScaleY(6);
+        wback.setScaleX(20);
+        wback.setY(130);
+        wback.setColorFilter(Color.rgb(255,255,255));
+        //setumei.setTextColor(Color.rgb(255,255,255));
+        setumei.setText("ごみ集め\n降り注ぐごみを集めましょう\n慣性でごみ箱が\n" +
+                "傾きます\nステルス鉄球には注意！");
 
         //ボタン機能
         hidariue = findViewById(R.id.hidariue);
@@ -934,7 +956,7 @@ public class Stage_2 extends AppCompatActivity {
                 monoy[12] = rand.nextInt(700) + 200;
                 monomovey[12] = -(rand.nextInt(100));
                 Score -= 2000;
-                HP -= 30;
+                HP -= 25;
             }
 
 
@@ -944,7 +966,7 @@ public class Stage_2 extends AppCompatActivity {
                 monoy[12] = rand.nextInt(700) + 200;
                 monomovey[12] = -(rand.nextInt(100));
                 Score -= 2000;
-                HP -= 30;
+                HP -= 25;
             }
 
         } else if (movex <= -3) { //-3
@@ -955,7 +977,7 @@ public class Stage_2 extends AppCompatActivity {
                 monoy[12] = rand.nextInt(700) + 200;
                 monomovey[12] = -(rand.nextInt(100));
                 Score -= 2000;
-                HP -= 30;
+                HP -= 25;
             }
 
 
@@ -965,7 +987,7 @@ public class Stage_2 extends AppCompatActivity {
                 monoy[12] = rand.nextInt(700) + 200;
                 monomovey[12] = -(rand.nextInt(100));
                 Score -= 2000;
-                HP -= 30;
+                HP -= 25;
             }
 
 
@@ -979,7 +1001,7 @@ public class Stage_2 extends AppCompatActivity {
                 monoy[12] = rand.nextInt(700) + 200;
                 monomovey[12] = -(rand.nextInt(100));
                 Score -= 2000;
-                HP -= 30;
+                HP -= 25;
             }
 
             if(monox[12]  >= hitox - 173 && monox[12] <= hitox + 173 && monoy[12] >= (float) (hitoy - 73 * ((float) boxscaley / 2 + 1))  - 73*1.5) {
@@ -988,7 +1010,7 @@ public class Stage_2 extends AppCompatActivity {
                 monoy[12] = rand.nextInt(700) + 200;
                 monomovey[12] = -(rand.nextInt(100));
                 Score -= 2000;
-                HP -= 30;
+                HP -= 25;
             }
         }
 
@@ -1041,7 +1063,11 @@ public class Stage_2 extends AppCompatActivity {
 
         hptext.setText("HP:" + HP);
         scoretext.setText("Score:" + Score);
-
+        hptext.setScaleX(1.5f);
+        hptext.setScaleY(1.5f);
+        scoretext.setScaleX(1.5f);
+        scoretext.setScaleY(1.5f);
+        hptext.setY(130);
         time -= 1;
         timetext.setText("Time:"+ time);
 
@@ -1116,6 +1142,9 @@ public class Stage_2 extends AppCompatActivity {
         if(gamestart == 0){ //最初だけgameを起動
             gamestart = 1;
             time = 6000;
+            setumei.setX(3000);
+            back.setX(3000);
+            wback.setX(2000);
             timer.schedule(new TimerTask() {
                 @Override
                 public void run() {

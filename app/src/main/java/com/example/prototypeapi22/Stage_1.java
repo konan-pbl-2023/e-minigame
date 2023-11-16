@@ -100,6 +100,10 @@ public class Stage_1 extends AppCompatActivity {
     MediaPlayer mainbgm;
     ImageView st1;
     int nomiss;
+    ImageView back;
+    TextView setumei;
+    ImageView wback;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -111,6 +115,22 @@ public class Stage_1 extends AppCompatActivity {
                 | View.SYSTEM_UI_FLAG_FULLSCREEN;
         decorView.setSystemUiVisibility(uiOptions);
         //https://developer.android.com/training/system-ui/navigation?hl=ja#java
+        back = findViewById(R.id.back);
+        //back.setColorFilter(Color.rgb(255,255,255));
+        back.setScaleX(1.65f);
+        back.setScaleY(1.65f);
+        setumei = findViewById(R.id.setumei);
+        setumei.setScaleX(1.5f);
+        setumei.setScaleY(1.5f);
+        setumei.setY(1150);
+        wback = findViewById(R.id.wback);
+        wback.setScaleY(6);
+        wback.setScaleX(20);
+        wback.setY(250);
+        wback.setColorFilter(Color.rgb(255,255,255));
+        //setumei.setTextColor(Color.rgb(255,255,255));
+        setumei.setText("釣り\n画面タップでウキが下に\n離したらウキが上に\n" +
+                "お魚の口元を狙いましょう\nサメには注意！");
 
         Intent intent = getIntent();
         hp = intent.getIntExtra("HPgive", 0);
@@ -933,6 +953,9 @@ public class Stage_1 extends AppCompatActivity {
         if(gamestart == 0){ //最初だけmoveturiitoを起動
             gamestart = 1;
             time = 6000;
+            setumei.setX(3000);
+            back.setX(3000);
+            wback.setX(3000);
             timer.schedule(new TimerTask() {
                 @Override
                 public void run() {

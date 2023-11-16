@@ -1,4 +1,23 @@
+//package com.example.myapplication;
+//
+//import androidx.appcompat.app.AppCompatActivity;
+//import android.os.Bundle;
+//import android.widget.ImageView;
+//
+//public class MainActivity extends AppCompatActivity {
+//    public ImageView imageView;
+//    @Override
+//    protected void onCreate(Bundle savedInstanceState) {
+//        super.onCreate(savedInstanceState);
+//        setContentView(R.layout.activity_main);
+//    }
+//}
+//家のPCの上のやつ
+
 package com.example.prototypeapi22;
+import static java.lang.Math.sin;
+import static java.sql.DriverManager.println;
+
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
 
@@ -28,17 +47,11 @@ import android.view.ViewGroup;
 
 import org.w3c.dom.Text;
 
-import com.example.prototypeapi22.R;
-
+//import com.example.myapplication.R;
 public class Stage_4 extends AppCompatActivity {
-    public ImageView imageView;
-    int Score;
-    int prevscore;
-    TextView load;
-    int tapx = 0;
-    int tapy = 0;
 
-    public TextView scoretext;
+    TextView load;
+    public TextView scoretext ;
     public TextView hptext;
     public ImageView hidariue;
     public ImageView ue;
@@ -48,36 +61,32 @@ public class Stage_4 extends AppCompatActivity {
     public ImageView sita;
     public ImageView hidarisita;
     public ImageView hidari;
+    private Handler handler = new Handler();
+    private Timer timer = new Timer();
+    int Score = 0;//kari
+    int prevscore;
+    int tapx = 0;
+    int tapy = 0;
     float bscale = 2; //ボタンの大きさ
     int bx;
     int by;
     float intex;
     float intey;
     int gamestart = 0;
-    private Handler handler = new Handler();
-    private Timer timer = new Timer();
     float movex = 0;
     float movey = 0;
     //ボタン処理
     int movenum = 0; // 左上→1、上→2、右上3、右4、右下5、下6、左下7、左8、入力なし0
     int tap = 0; // 0 = 押してない、1 = 押している
+    int centerb = 0;
     int buttontoumeido = 70; //ボタンの透明度、0で完全に透明、255で完全に不透明
     //intだとなぜかsetAlphaに打ち消し線入るけどちゃんと動く
     //floatだと打ち消し線入らないのにちゃんと動かない、謎
     //ボタン処理終わり
-    ImageView zimen;
+
     ImageView hito;
     float hitox = 540;
     float hitoy = 501;
-    int jumptime = 50; //ジャンプの時間
-    int jump = -jumptime;
-    float jumpx = (float)0.005; //ジャンプの高さを何倍にするか
-    ImageView boxn; //通常状態のごみばこ
-    ImageView boxr; //右に進んでる時のごみばこ
-    ImageView boxl; //左に進んでる時のごみばこ
-    int boxscalex = 2; //ごみばこの大きさ倍率
-    int boxscaley = 3;
-
     ImageView mono1;
     ImageView mono2;
     ImageView mono3;
@@ -91,20 +100,29 @@ public class Stage_4 extends AppCompatActivity {
     ImageView mono11;
     ImageView mono12;
 
+
+
     int obj = 13;
     float monox[] = new float[obj];
     float monoy[] = new float[obj];
     float monomovex[] = new float[obj];
     float monomovey[] = new float[obj];
+    float monomove[] = new float[obj];
     Random rand = new Random();
     ImageView ball;
     ImageView mannaka;
 
-    int HP;
+
+    int HP = 0;
     int time;
 
     int hitomoves = 3;
-    TextView timetext;
+    TextView timetext ;
+    ImageView back;
+    ImageView wback;
+    TextView setumei;
+    ImageView haikei;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -117,6 +135,26 @@ public class Stage_4 extends AppCompatActivity {
         Intent intent = getIntent();
         HP = intent.getIntExtra("HPgive", 10); //デバッグ用に初期値10
         Score = intent.getIntExtra("Scoregive",0);
+        haikei = findViewById(R.id.haikei);
+        haikei.setScaleX(1.5f);
+        haikei.setScaleY(1.5f);
+        back = findViewById(R.id.back);
+        //back.setColorFilter(Color.rgb(255,255,255));
+        back.setScaleX(1.65f);
+        back.setScaleY(1.65f);
+        setumei = findViewById(R.id.setumei);
+        setumei.setScaleX(1.5f);
+        setumei.setScaleY(1.5f);
+        setumei.setY(750);
+        wback = findViewById(R.id.wback);
+        wback.setScaleY(6);
+        wback.setScaleX(20);
+        wback.setY(760);
+        wback.setColorFilter(Color.rgb(255,255,255));
+        //setumei.setTextColor(Color.rgb(255,255,255));
+        setumei.setText("金魚すくい\nポイを金魚に合わせて\n真ん中ボタンで釣れるっぽい\n" +
+                "押し続けていると\nHPが減っていくので注意！");
+
         prevscore = Score;
         load = findViewById(R.id.load);
         load.setX(2000);
@@ -143,6 +181,8 @@ public class Stage_4 extends AppCompatActivity {
         mono10 = findViewById(R.id.mono10);
         mono11 = findViewById(R.id.mono11);
         mono12 = findViewById(R.id.mono12);
+        scoretext = findViewById(R.id.scoretext);
+        hptext = findViewById(R.id.hptext);
 
         //ボタンのデフォルト設定
         bx = 600; //buttonX
@@ -178,10 +218,14 @@ public class Stage_4 extends AppCompatActivity {
         mannaka.setAlpha(150);
 
 
-
-
+        println("score:%lf"+ Score);
+        for(int i = 0; i < obj; i++){
+            monox[i] = i * 50;
+            monoy[i] = i * 100;
+        }
     }
     public void game(){
+
         float gosax = intex / 4; //なぜか若干誤差が出る(マウスカーソルの当たり判定とタップの判定が違う？)
         float gosay = intey / 4;  //ので調整用,大きさ2倍ならそれぞれinte(x or y)/4
         //当たり判定違う理由わかった、これ座標の基準の点真ん中じゃなくて左上だわ
@@ -252,6 +296,9 @@ public class Stage_4 extends AppCompatActivity {
             hidari.setColorFilter(Color.rgb(255, 255, 0));
         }else if (movenum == 9) {
             mannaka.setColorFilter(Color.rgb(100, 255, 0));
+            centerb = 1;
+        }else {
+            centerb = 0;
         }
 
         //横移動処理
@@ -271,10 +318,10 @@ public class Stage_4 extends AppCompatActivity {
             }
         }
         hitox += movex;
-        hito.setScaleY(2);
+        //hito.setScaleY(2);
         hito.setX(hitox);
 
-        hito.setColorFilter(Color.rgb(150, 200, 200));
+        // hito.setColorFilter(Color.rgb(150, 200, 200));
         if (hitox <= 0) {
             hitox = 0;
             if (movex < 0) {
@@ -304,10 +351,8 @@ public class Stage_4 extends AppCompatActivity {
             }
         }
         hitoy += movey;
-        hito.setScaleY(2);
         hito.setY(hitoy);
 
-        hito.setColorFilter(Color.rgb(150, 200, 200));
         if (hitox <= 0) {
             hitox = 0;
             if (movex < 0) {
@@ -360,52 +405,78 @@ public class Stage_4 extends AppCompatActivity {
         mono11.setY(monoy[10]);
         mono12.setY(monoy[11]);
 
-        if(rand.nextInt(100) < 96){
-            monox[1]+= (rand.nextInt(5) * 1.8);
-            monoy[1]+= (rand.nextInt(19) -9);
-        }else{
-            monox[1] += 24;
-            if(rand.nextInt(100) < 50) {
-                monoy[1] += 5;
-            }else{
-                monoy[1] -= 5;
+        for(int i = 0; i < obj; i++) {
+            if (rand.nextInt(100) < 96) {
+                if (i % 4 == 0) {
+                    //  monomove[i] = (rand.nextInt(5) * 0.5);
+                    monox[i] += (rand.nextInt(5) * 0.5);
+                    monoy[i] += (rand.nextInt(5) * 0.5);
+                }
+                if (i % 4 == 1) {
+                    monox[i] -= (rand.nextInt(5) * 0.8);
+                    monoy[i] -= (rand.nextInt(5) * 0.8);
+                }
+                if (i % 4 == 2) {
+                    monox[i] -= (rand.nextInt(5) * 0.2);
+                    monoy[i] += (rand.nextInt(5) * 0.2);
+                }
+                if (i % 4 == 3) {
+                    monox[i] += (rand.nextInt(5) * 1.1);
+                    monoy[i] -= (rand.nextInt(5) * 1.1);
+                }
+
+            } else {
+                monox[i] += 10;
+                monoy[i] += 5;
+                if (rand.nextInt(100) < 50) {
+                    monoy[i] += 5;
+                } else {
+                    monoy[i] -= 5;
+                }
+            }
+            if (monox[i] > 1300) {
+                monox[i] = -1;
+            }
+            if (monox[i] < -100) {
+                monox[i] = 1200;
+            }
+            if (monoy[i] < -100) {
+                monoy[i] = 1900;
+            }
+            if (monoy[i] > 1900) {
+                monoy[i] = 0;
+            }
+            if (centerb == 1) {
+                if ((monox[i] - hitox) * (monox[i] - hitox) + (monoy[i] - hitoy) * (monoy[i] - hitoy) < 20000) {
+
+                    Score += 500;
+                    HP += 5;
+                    if(rand.nextInt(2) == 0){
+                        monox[i] = -1;
+                    }else{
+                        monox[i] = 1200;
+                    }
+                    if(rand.nextInt(2) == 0){
+                        monox[i] = 1900;
+                    }else{
+                        monox[i] = 0;
+                    }
+                } else if (time % 100 == 0) {
+                    HP -= 1;
+                }
             }
         }
-        if(monox[1] > 1300){
-//            tst = rand.nextInt(500) - 600;
-//            tst2 = rand.nextInt(1000) + 500;
-//            monox[1] = tst;
-//            monoy[1] = tst2;
-            monox[1] = -1;
-        }
-        if(monoy[1] < 400){
-            monoy[1] = 400;
-        }
-//        monox[12] = 100;
-//        monoy[12] = 500;
-//        for(int i = 0; i < obj; i++){
-//            monox[i] = +1;//rand.nextInt(800) + 800;
-//        }
-//        for(int i = 0; i < obj; i++){
-//            monoy[i] = +11;//rand.nextInt(800) + 200;
-//        }
 
-
-
-//        for(int i = 0; i < obj; i++){
-//            monomovex[i] = -(rand.nextInt(800) / 5 + 1);
-//        }
-//        for(int i = 0; i < obj; i++){
-//            monomovey[i] = -(rand.nextInt(800));
-//
-//        }
-
-//        monox[12] = 100;
-//        monoy[12] = 500;
-//        monox[12] += 100;
-//        monoy[12] += 500;
 
         time -= 1;
+        //Score = rand.nextInt(100);
+        scoretext.setText("" + time);
+        scoretext.setX(600);
+        scoretext.setY(50);
+        scoretext.setScaleX((float)1.5);
+        scoretext.setScaleY((float)1.5);
+        hptext.setText("HP\n"+ HP);
+
         if(HP <= 0 || time <= 0){
 
             Intent intent = new Intent(getApplication(), GameOver.class);
@@ -426,9 +497,6 @@ public class Stage_4 extends AppCompatActivity {
         }
     }
 
-
-
-
     @Override
     public boolean onTouchEvent (MotionEvent event) {
         //ボタン関係の処理はじめ
@@ -438,7 +506,6 @@ public class Stage_4 extends AppCompatActivity {
             tap = 1;
         } else if(event.getAction() == MotionEvent.ACTION_UP) {
             tap = 0;
-
         }
 
 
@@ -465,6 +532,9 @@ public class Stage_4 extends AppCompatActivity {
         if(gamestart == 0){ //最初だけgameを起動
             gamestart = 1;
             time = 6000;
+            setumei.setX(3000);
+            back.setX(3000);
+            wback.setX(2000);
             timer.schedule(new TimerTask() {
                 @Override
                 public void run() {
