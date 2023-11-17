@@ -103,6 +103,8 @@ public class Map extends AppCompatActivity {
     SoundPool soundPool;
     int buttonse;
     MediaPlayer mainbgm;
+    TextView setumei;
+    ImageView wback;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -119,6 +121,21 @@ public class Map extends AppCompatActivity {
         Score = intent.getIntExtra("Scoregive",0);
         Clearflag = intent.getIntExtra("Clearflag",1);
         //1　→ *2 ;2 → 3;3→5;4→7
+
+
+        setumei = findViewById(R.id.setumei);
+        setumei.setScaleX(1.5f);
+        setumei.setScaleY(1.5f);
+        setumei.setY(770);
+        wback = findViewById(R.id.wback);
+        wback.setScaleY(6);
+        wback.setScaleX(20);
+        wback.setY(750);
+        wback.setColorFilter(Color.rgb(255,255,255));
+        //setumei.setTextColor(Color.rgb(255,255,255));
+        setumei.setText("あらすじ\n清掃員くんは\n今日も街の平和のために\n各所の掃除と\n" +
+                "ドラゴン退治に向かいます\n");
+
         hptext = findViewById(R.id.hp);
         scoretext = findViewById(R.id.score);
         hptext.setText("HP:"+HP);
@@ -530,6 +547,9 @@ public class Map extends AppCompatActivity {
             hito.setX(200);
             hito.setY(400);
             gamestart = 1;
+            setumei.setX(3000);
+
+            wback.setX(3000);
             stagex[0] = 780; //仮置きのステージの座標
         stagex[1] = 350;
         stagex[2] = 220;

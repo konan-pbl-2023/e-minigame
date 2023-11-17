@@ -85,11 +85,11 @@ public class MainActivity extends AppCompatActivity {
         titletxt = findViewById(R.id.titletxt);
         titletxt.setScaleX(3);
         titletxt.setScaleY(3);
-        titletxt.setText("タイトル(仮)");
+        titletxt.setText("クリーンアップ\nアドベンチャー");
         titletxt2 = findViewById(R.id.titletxt2);
         titletxt2.setScaleX(2);
         titletxt2.setScaleY(2);
-        titletxt2.setY(-300);
+        titletxt2.setY(-200);
         titletxt2.setX(-30);
         titletxt2.setText("制作：Team_E");
         okButton.setOnClickListener(new View.OnClickListener() {

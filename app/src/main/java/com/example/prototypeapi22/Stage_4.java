@@ -28,6 +28,9 @@ import android.graphics.BitmapFactory;
 import android.graphics.Bitmap.Config;
 import android.graphics.Color;
 import android.graphics.Path;
+import android.media.AudioAttributes;
+import android.media.MediaPlayer;
+import android.media.SoundPool;
 import android.os.Bundle;
 import android.view.Display;
 import android.view.View;
@@ -122,6 +125,11 @@ public class Stage_4 extends AppCompatActivity {
     ImageView wback;
     TextView setumei;
     ImageView haikei;
+    int Clearflag;
+    int nomiss;
+    SoundPool soundPool;
+    int fishse;
+    MediaPlayer mainbgm;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -135,6 +143,8 @@ public class Stage_4 extends AppCompatActivity {
         Intent intent = getIntent();
         HP = intent.getIntExtra("HPgive", 10); //デバッグ用に初期値10
         Score = intent.getIntExtra("Scoregive",0);
+        Clearflag = intent.getIntExtra("Clearflag",0);
+        nomiss = intent.getIntExtra("nomissflag",0);
         haikei = findViewById(R.id.haikei);
         haikei.setScaleX(1.5f);
         haikei.setScaleY(1.5f);
@@ -154,7 +164,7 @@ public class Stage_4 extends AppCompatActivity {
         //setumei.setTextColor(Color.rgb(255,255,255));
         setumei.setText("金魚すくい\nポイを金魚に合わせて\n真ん中ボタンで釣れるっぽい\n" +
                 "押し続けていると\nHPが減っていくので注意！");
-
+        timetext = findViewById(R.id.timetext);
         prevscore = Score;
         load = findViewById(R.id.load);
         load.setX(2000);
@@ -223,6 +233,27 @@ public class Stage_4 extends AppCompatActivity {
             monox[i] = i * 50;
             monoy[i] = i * 100;
         }
+        AudioAttributes audioAttributes = new AudioAttributes.Builder()
+                // USAGE_MEDIA
+                // USAGE_GAME
+                .setUsage(AudioAttributes.USAGE_GAME)
+                // CONTENT_TYPE_MUSIC
+                // CONTENT_TYPE_SPEECH, etc.
+                .setContentType(AudioAttributes.CONTENT_TYPE_SPEECH)
+                .build();
+        soundPool = new SoundPool.Builder()
+                .setAudioAttributes(audioAttributes)
+                // ストリーム数に応じて
+                .setMaxStreams(10)
+                .build();
+        fishse = soundPool.load(this,R.raw.sakana,0);
+        BGM();
+
+    }
+    public void BGM(){ //仮置き
+        mainbgm = MediaPlayer.create(this,R.raw.mainbgm2);
+
+        mainbgm.start();
     }
     public void game(){
 
@@ -379,31 +410,9 @@ public class Stage_4 extends AppCompatActivity {
             }
 
         }
-        mono1.setX(monox[0]);
-        mono2.setX(monox[1]);
-        mono3.setX(monox[2]);
-        mono4.setX(monox[3]);
-        mono5.setX(monox[4]);
-        mono6.setX(monox[5]);
-        mono7.setX(monox[6]);
-        mono8.setX(monox[7]);
-        mono9.setX(monox[8]);
-        mono10.setX(monox[9]);
-        mono11.setX(monox[10]);
-        mono12.setX(monox[11]);
 
-        mono1.setY(monoy[0]);
-        mono2.setY(monoy[1]);
-        mono3.setY(monoy[2]);
-        mono4.setY(monoy[3]);
-        mono5.setY(monoy[4]);
-        mono6.setY(monoy[5]);
-        mono7.setY(monoy[6]);
-        mono8.setY(monoy[7]);
-        mono9.setY(monoy[8]);
-        mono10.setY(monoy[9]);
-        mono11.setY(monoy[10]);
-        mono12.setY(monoy[11]);
+
+
 
         for(int i = 0; i < obj; i++) {
             if (rand.nextInt(100) < 96) {
@@ -417,8 +426,8 @@ public class Stage_4 extends AppCompatActivity {
                     monoy[i] -= (rand.nextInt(5) * 0.8);
                 }
                 if (i % 4 == 2) {
-                    monox[i] -= (rand.nextInt(5) * 0.2);
-                    monoy[i] += (rand.nextInt(5) * 0.2);
+                    monox[i] -= (rand.nextInt(5) * 0.6);
+                    monoy[i] += (rand.nextInt(5) * 0.6);
                 }
                 if (i % 4 == 3) {
                     monox[i] += (rand.nextInt(5) * 1.1);
@@ -447,9 +456,9 @@ public class Stage_4 extends AppCompatActivity {
                 monoy[i] = 0;
             }
             if (centerb == 1) {
-                if ((monox[i] - hitox) * (monox[i] - hitox) + (monoy[i] - hitoy) * (monoy[i] - hitoy) < 20000) {
+                if ((monox[i] - hitox) * (monox[i] - hitox) + (monoy[i] - hitoy) * (monoy[i] - hitoy) < 24000) {
 
-                    Score += 500;
+                    Score += 750;
                     HP += 5;
                     if(rand.nextInt(2) == 0){
                         monox[i] = -1;
@@ -467,15 +476,78 @@ public class Stage_4 extends AppCompatActivity {
             }
         }
 
+        mono1.setScaleX(2);
+        mono1.setScaleY(4);
+        mono2.setScaleX(2);
+        mono2.setScaleY(4);
+        mono3.setScaleX(2);
+        mono3.setScaleY(4);
+        mono4.setScaleX(2);
+        mono4.setScaleY(4);
+        mono5.setScaleX(2);
+        mono5.setScaleY(4);
+        mono6.setScaleX(2);
+        mono6.setScaleY(4);
+        mono7.setScaleX(2);
+        mono7.setScaleY(4);
+        mono11.setScaleX(2);
+        mono11.setScaleY(4);
+        mono12.setScaleX(2);
+        mono12.setScaleY(4);
+
+        mono8.setScaleX(4);
+        mono8.setScaleY(2);
+        mono9.setScaleX(4);
+        mono9.setScaleY(2);
+        mono10.setScaleX(4);
+        mono10.setScaleY(2);
+
+
+        mono1.setX(monox[0]);
+        mono2.setX(monox[1]);
+        mono3.setX(monox[2]);
+        mono4.setX(monox[3]);
+        mono5.setX(monox[4]);
+        mono6.setX(monox[5]);
+        mono7.setX(monox[6]);
+        mono8.setX(monox[7]);
+        mono9.setX(monox[8]);
+        mono10.setX(monox[9]);
+        mono11.setX(monox[10]);
+        mono12.setX(monox[11]);
+
+        mono1.setY(monoy[0]);
+        mono2.setY(monoy[1]);
+        mono3.setY(monoy[2]);
+        mono4.setY(monoy[3]);
+        mono5.setY(monoy[4]);
+        mono6.setY(monoy[5]);
+        mono7.setY(monoy[6]);
+        mono8.setY(monoy[7]);
+        mono9.setY(monoy[8]);
+        mono10.setY(monoy[9]);
+        mono11.setY(monoy[10]);
+        mono12.setY(monoy[11]);
+        hito.setScaleX(2);
+        hito.setScaleY(2);
+
 
         time -= 1;
         //Score = rand.nextInt(100);
-        scoretext.setText("" + time);
-        scoretext.setX(600);
+        scoretext.setText("Score:" + Score);
+        scoretext.setX(50);
         scoretext.setY(50);
         scoretext.setScaleX((float)1.5);
         scoretext.setScaleY((float)1.5);
-        hptext.setText("HP\n"+ HP);
+        hptext.setScaleX(1.5f);
+        hptext.setScaleY(1.5f);
+        timetext.setScaleX(1.5f);
+        timetext.setScaleY(1.5f);
+        timetext.setX(500);
+        timetext.setY(50);
+        timetext.setText("Time:"+time);
+
+        hptext.setText("HP:"+ HP);
 
         if(HP <= 0 || time <= 0){
 
@@ -491,6 +563,18 @@ public class Stage_4 extends AppCompatActivity {
             intent.putExtra("Scoregive",Score);
             intent.putExtra("MapID",4);
             intent.putExtra("Prevscore",prevscore);
+            if(HP > 0 && Score - prevscore >= 10000){
+
+            }else{
+                nomiss = 1;
+            }
+            intent.putExtra("nomissflag",nomiss);
+
+            if(Clearflag % 7 != 0 && HP > 0 && Score >= 10000){
+                Clearflag *= 7;
+            }
+            intent.putExtra("Clearflag",Clearflag);
+            mainbgm.stop();
             startActivity(intent);
 
 

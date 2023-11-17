@@ -338,7 +338,7 @@ public class Stage_1 extends AppCompatActivity {
         fishse = soundPool.load(this,R.raw.sakana,0);
     } //onCreate終わり
     public void BGM(){ //仮置き
-        mainbgm = MediaPlayer.create(this,R.raw.mainbgm);
+        mainbgm = MediaPlayer.create(this,R.raw.mainbgm2);
 
         mainbgm.start();
     }

@@ -401,7 +401,7 @@ public class Stage_5 extends AppCompatActivity {
 
     public void BGM(){
 
-        mainbgm = MediaPlayer.create(this,R.raw.mainbgm);
+        mainbgm = MediaPlayer.create(this,R.raw.las);
         mainbgm.start();
     }
 
