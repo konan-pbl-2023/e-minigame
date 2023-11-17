@@ -46,7 +46,7 @@ public class Ending extends AppCompatActivity {
     int endingy = 1920;//文字の大きさによって色々変わるので都度実行して調整
     float endingScale = (float)1.5; //文字の大きさ
     //少数を入れる場合は(float)を数字の前につけないと動かないので注意
-    int endingspeed = 2; //文字の流れる速さ
+    int endingspeed = 2; //文字の流れる速さ 2予定
     SoundPool soundPool;
     MediaPlayer mainbgm;
     int MapID;
@@ -59,6 +59,17 @@ public class Ending extends AppCompatActivity {
     int buttony;
     ImageView wback;
     TextView sosite;
+    ImageView hito1;
+    int hitoy;
+    int dragonx;
+    int dragony;
+    ImageView dragon;
+    ImageView hito2;
+    ImageView an;
+    ImageView box;
+    int boxy;
+    ImageView same;
+    int samey;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -74,10 +85,14 @@ public class Ending extends AppCompatActivity {
         sosite = findViewById(R.id.sosite);
         wback.setScaleX(100);
         wback.setScaleY(100);
-        sosite.setScaleX(2);
-        sosite.setScaleY(2);
+        sosite.setScaleX(4);
+        sosite.setScaleY(4);
         wback.setColorFilter(Color.rgb(255,255,255));
         sosite.setText("そして...");
+        dragon = findViewById(R.id.dragon);
+        dragon.setScaleX(4);
+        dragon.setScaleY(4);
+        dragon.setX(3000);
         //Homeボタンなど消しのおまじない
         View decorView = getWindow().getDecorView();
         int uiOptions = View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
@@ -100,12 +115,17 @@ public class Ending extends AppCompatActivity {
         ending = findViewById(R.id.ending);
         ending.setScaleX(endingScale); //文字の大きさ
         ending.setScaleY(endingScale);
-
+        an = findViewById(R.id.an);
+        an.setScaleX(3);
+        an.setScaleY(3);
+        an.setY(-650);
+        an.setX(0);
         //ここにif文を挟んでエンディング分岐簡単に！
         if(nomiss == 0) {
-            ending.setText("テスト文\nで改行" +
-                    "横に長すぎるようならこうやっても" +
-                    "\n問題なく繋がる\n" +
+            ending.setText("ゲームクリア\n" +
+                    "おめでとう！\n"+
+                    "あなたのおかげで町が綺麗になったよ！\n" +
+                    "ここまでプレイしてくれてありがとう！\n" +
                     "\n残りHP\n\n" +
                     HP+"\n\n"+
                     "最終Score\n\n"+
@@ -123,8 +143,8 @@ public class Ending extends AppCompatActivity {
                     "井本\n" +
                     "森井\n\n" +
                     "スペシャルサンクス\n\n" +
-                    "先生とTAさんと画像、音声引用元\n" +
-                    "情報システム室\n\n\n\n" +
+                    "新田先生\nTAの方々\n画像、音声引用元\n" +
+                    "情報システム室\n\n\n" +
                     "おわり");
         }else{
             ending.setText("こっちはノーミス失敗時");
@@ -147,8 +167,22 @@ public class Ending extends AppCompatActivity {
 
         });
         BGM();
-        buttony = 3000;
-        //ifここまで
+        buttony = 4900;
+        hito1 = findViewById(R.id.hito1);
+        hito1.setScaleX(0.5f);
+        hito1.setScaleY(0.5f);
+        hito1.setX(5000);
+        hito1.setY(300);
+        hito2 = findViewById(R.id.hito2);
+        hito2.setY(1100);
+        hito2.setX(-50);
+
+        box = findViewById(R.id.box);
+        same = findViewById(R.id.same);
+        same.setX(3000);
+        box.setX(3000);
+        titleButton.setText("タイトルへ戻る");
+        //createここまで
     }
 
     public void BGM(){
@@ -163,10 +197,20 @@ public class Ending extends AppCompatActivity {
         endingy -= endingspeed;
         ending.setY(endingy);
         buttony -= endingspeed;
+        hitoy -= endingspeed;
+        hito1.setY(hitoy);
+        hito1.setX(500);
+
         titleButton.setY(buttony);
-        if(buttony < 400){
+        if(buttony < 1600){
             timer.cancel();
         }
+        dragony -= endingspeed;
+        dragon.setY(dragony);
+        boxy -= endingspeed;
+        box.setY(boxy);
+        samey -= endingspeed;
+        same.setY(samey);
     }
 
     @Override
@@ -186,6 +230,22 @@ public class Ending extends AppCompatActivity {
             ending.setY(endingy);
             sosite.setX(3000);
             wback.setX(30000);
+            hitoy = 2600;
+            dragon.setX(700);
+            dragon.setY(2600);
+            an.setX(3000);
+            hito2.setX(3000);
+            dragony = 2600;
+            box.setX(550);
+            box.setY(1900);
+            boxy = 1900;
+            box.setScaleX(0.5f);
+            box.setScaleY(0.5f);
+            same.setX(500);
+            same.setScaleX(12);
+            same.setScaleY(6);
+            same.setY(4300);
+            samey = 4500;
             timer.schedule(new TimerTask() {
                 @Override
                 public void run() {

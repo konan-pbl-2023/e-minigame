@@ -246,15 +246,15 @@ public class GameOver extends AppCompatActivity {
 
             if(HP <= 0) {
                 gameover.setText("Game Over!!!");
-                because.setText("かりおき\nHP:" + HP + "\n今回のScore:"+ nowscore + "\n合計Score:" + Score);
+                because.setText("\nHP:" + HP + "\n今回のScore:"+ nowscore + "\n合計Score:" + Score);
                 stagebutton.setText("HPを回復して元のステージをやり直す");
                 mapbutton.setText("HPを回復してマップに戻る");
             }else if(Score - prevscore <10000){
                 gameover.setText("Game Over!!!");
-                because.setText("かりおき\nHP:" + HP + "\n今回のScore:"+ nowscore + "\n合計Score:" + Score);
+                because.setText("もう少し頑張りましょう\n10000点ぐらいは\nHP:" + HP + "\n今回のScore:"+ nowscore + "\n合計Score:" + Score);
             }else{
                 gameover.setText("Game Clear!!!");
-                because.setText("かりおき\nHP:" + HP + "\n今回のScore:"+ nowscore + "\n合計Score:" + Score);
+                because.setText("よくできました\nHP:" + HP + "\n今回のScore:"+ nowscore + "\n合計Score:" + Score);
             }
         }
         //Stage_4のゲームオーバーテキスト
