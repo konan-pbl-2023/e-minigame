@@ -683,7 +683,7 @@ public class Stage_2 extends AppCompatActivity {
                     monoy[i] = rand.nextInt(700) + 200;
                     monomovey[i] = -(rand.nextInt(100));
                     Score += 900;
-                    HP += 2;
+                    HP += 3;
                     if(i == 0){
                         tst = rand.nextInt(255);
                         tst2 = rand.nextInt(255);
@@ -775,7 +775,7 @@ public class Stage_2 extends AppCompatActivity {
                     monoy[i] = rand.nextInt(700) + 200;
                     monomovey[i] = -(rand.nextInt(100));
                     Score += 900;
-                    HP += 2;
+                    HP += 3;
                     if(i == 0){
                         tst = rand.nextInt(255);
                         tst2 = rand.nextInt(255);
@@ -869,7 +869,7 @@ public class Stage_2 extends AppCompatActivity {
                     monoy[i] = rand.nextInt(700) + 200;
                     monomovey[i] = -(rand.nextInt(100));
                     Score += 900;
-                    HP += 2;
+                    HP += 3;
                     if(i == 0){
                         tst = rand.nextInt(255);
                         tst2 = rand.nextInt(255);
@@ -955,8 +955,8 @@ public class Stage_2 extends AppCompatActivity {
                 monomovex[12] = -(rand.nextInt(20) / 5 + 1);
                 monoy[12] = rand.nextInt(700) + 200;
                 monomovey[12] = -(rand.nextInt(100));
-                Score -= 2000;
-                HP -= 25;
+                Score -= 1000;
+                HP -= 20;
             }
 
 
@@ -965,8 +965,8 @@ public class Stage_2 extends AppCompatActivity {
                 monomovex[12] = -(rand.nextInt(20) / 5 + 1);
                 monoy[12] = rand.nextInt(700) + 200;
                 monomovey[12] = -(rand.nextInt(100));
-                Score -= 2000;
-                HP -= 25;
+                Score -= 1000;
+                HP -= 20;
             }
 
         } else if (movex <= -3) { //-3
@@ -976,8 +976,8 @@ public class Stage_2 extends AppCompatActivity {
                 monomovex[12] = -(rand.nextInt(20) / 5 + 1);
                 monoy[12] = rand.nextInt(700) + 200;
                 monomovey[12] = -(rand.nextInt(100));
-                Score -= 2000;
-                HP -= 25;
+                Score -= 1000;
+                HP -= 20;
             }
 
 
@@ -986,8 +986,8 @@ public class Stage_2 extends AppCompatActivity {
                 monomovex[12] = -(rand.nextInt(20) / 5 + 1);
                 monoy[12] = rand.nextInt(700) + 200;
                 monomovey[12] = -(rand.nextInt(100));
-                Score -= 2000;
-                HP -= 25;
+                Score -= 1000;
+                HP -= 20;
             }
 
 
@@ -1000,8 +1000,8 @@ public class Stage_2 extends AppCompatActivity {
                 monomovex[12] = -(rand.nextInt(20) / 5 + 1);
                 monoy[12] = rand.nextInt(700) + 200;
                 monomovey[12] = -(rand.nextInt(100));
-                Score -= 2000;
-                HP -= 25;
+                Score -= 1000;
+                HP -= 20;
             }
 
             if(monox[12]  >= hitox - 173 && monox[12] <= hitox + 173 && monoy[12] >= (float) (hitoy - 73 * ((float) boxscaley / 2 + 1))  - 73*1.5) {
@@ -1009,8 +1009,8 @@ public class Stage_2 extends AppCompatActivity {
                 monomovex[12] = -(rand.nextInt(20) / 5 + 1);
                 monoy[12] = rand.nextInt(700) + 200;
                 monomovey[12] = -(rand.nextInt(100));
-                Score -= 2000;
-                HP -= 25;
+                Score -= 1000;
+                HP -= 20;
             }
         }
 

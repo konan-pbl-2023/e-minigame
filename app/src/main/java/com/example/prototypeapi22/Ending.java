@@ -46,7 +46,7 @@ public class Ending extends AppCompatActivity {
     int endingy = 1920;//文字の大きさによって色々変わるので都度実行して調整
     float endingScale = (float)1.5; //文字の大きさ
     //少数を入れる場合は(float)を数字の前につけないと動かないので注意
-    int endingspeed = 5; //文字の流れる速さ
+    int endingspeed = 2; //文字の流れる速さ
     SoundPool soundPool;
     MediaPlayer mainbgm;
     int MapID;
@@ -57,6 +57,8 @@ public class Ending extends AppCompatActivity {
     Button titleButton;
     int buttonse;
     int buttony;
+    ImageView wback;
+    TextView sosite;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -66,8 +68,16 @@ public class Ending extends AppCompatActivity {
         HP = intent.getIntExtra("HPgive", 100);
         Score = intent.getIntExtra("Scoregive",0);
         Clearflag = intent.getIntExtra("Clearflag",1); //Clearflagに関しては受け取る意味ないと思うけど
-        nomiss = intent.getIntExtra("nomissflag",0); //２エンド分けたかったけど明後日までに揃うんか...？
-
+        //nomiss = intent.getIntExtra("nomissflag",0); //２エンド分けたかったけど明後日までに揃うんか...？
+        nomiss = 0;
+        wback = findViewById(R.id.wback);
+        sosite = findViewById(R.id.sosite);
+        wback.setScaleX(100);
+        wback.setScaleY(100);
+        sosite.setScaleX(2);
+        sosite.setScaleY(2);
+        wback.setColorFilter(Color.rgb(255,255,255));
+        sosite.setText("そして...");
         //Homeボタンなど消しのおまじない
         View decorView = getWindow().getDecorView();
         int uiOptions = View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
@@ -90,16 +100,37 @@ public class Ending extends AppCompatActivity {
         ending = findViewById(R.id.ending);
         ending.setScaleX(endingScale); //文字の大きさ
         ending.setScaleY(endingScale);
+
         //ここにif文を挟んでエンディング分岐簡単に！
         if(nomiss == 0) {
             ending.setText("テスト文\nで改行" +
                     "横に長すぎるようならこうやっても" +
-                    "\n問題なく繋がる");
+                    "\n問題なく繋がる\n" +
+                    "\n残りHP\n\n" +
+                    HP+"\n\n"+
+                    "最終Score\n\n"+
+                    Score+"\n\n"+
+                    "スタッフ(五十音＆敬称略)\n" +
+                    "マネージャー\n" +
+                    "\n" +
+                    "山田\n\n" +
+                    "プログラマ\n" +
+                    "\n" +
+                    "陳\n" +
+                    "前田\n" +
+                    "山田\n" +
+                    "\nコンテンツ\n\n" +
+                    "井本\n" +
+                    "森井\n\n" +
+                    "スペシャルサンクス\n\n" +
+                    "先生とTAさんと画像、音声引用元\n" +
+                    "情報システム室\n\n\n\n" +
+                    "おわり");
         }else{
             ending.setText("こっちはノーミス失敗時");
         }
         titleButton = findViewById(R.id.titlebutton);
-
+        titleButton.setY(3000);
         titleButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 soundPool.play(buttonse, 3.0f, 3.0f, 0, 0, 1.0f);
@@ -123,7 +154,7 @@ public class Ending extends AppCompatActivity {
     public void BGM(){
         //仮置きでmainbgmを置いています(ほかのステージで使ったやつ)
 
-        mainbgm = MediaPlayer.create(this,R.raw.mainbgm);
+        mainbgm = MediaPlayer.create(this,R.raw.en);
 
         mainbgm.start();
     }
@@ -133,6 +164,9 @@ public class Ending extends AppCompatActivity {
         ending.setY(endingy);
         buttony -= endingspeed;
         titleButton.setY(buttony);
+        if(buttony < 400){
+            timer.cancel();
+        }
     }
 
     @Override
@@ -150,6 +184,8 @@ public class Ending extends AppCompatActivity {
             gamestart = 1;
             ending.setX(endingx); //文字の初期位置
             ending.setY(endingy);
+            sosite.setX(3000);
+            wback.setX(30000);
             timer.schedule(new TimerTask() {
                 @Override
                 public void run() {

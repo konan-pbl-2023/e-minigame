@@ -4,8 +4,12 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.graphics.Color;
+import android.media.AudioAttributes;
+import android.media.MediaPlayer;
+import android.media.SoundPool;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Button;
 
@@ -25,6 +29,9 @@ public class GameOver extends AppCompatActivity {
     Button stagebutton;
     Button titlebutton;
     int Clearflag;
+    ImageView back;
+    SoundPool soundPool;
+    MediaPlayer bgm;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -47,16 +54,42 @@ public class GameOver extends AppCompatActivity {
         stagebutton.setText("元のステージをやり直す");
         mapbutton.setText("マップに戻る");
         titlebutton.setText("タイトルに戻る(初めから)");
-
+        back = findViewById(R.id.back);
+        back.setScaleX(1.65f);
+        back.setScaleY(1.65f);
         prevscore = intent.getIntExtra("Prevscore",0);
         if(MapID == 5 && HP >= 0 && Score - prevscore >= 10000){
             titlebutton.setText("エンディングに行く");
         }
         nowscore = Score - prevscore;
+        mapbutton.setBackgroundColor(Color.rgb(0,255,0));
+        mapbutton.setTextColor(Color.rgb(0,0,0));
+        stagebutton.setBackgroundColor(Color.rgb(0,0,255));
+        titlebutton.setBackgroundColor(Color.rgb(255,0,0));
+        AudioAttributes audioAttributes = new AudioAttributes.Builder()
+                // USAGE_MEDIA
+                // USAGE_GAME
+                .setUsage(AudioAttributes.USAGE_GAME)
+                // CONTENT_TYPE_MUSIC
+                // CONTENT_TYPE_SPEECH, etc.
+                .setContentType(AudioAttributes.CONTENT_TYPE_SPEECH)
+                .build();
+        soundPool = new SoundPool.Builder()
+                .setAudioAttributes(audioAttributes)
+                // ストリーム数に応じて
+                .setMaxStreams(10)
+                .build();
+        if(HP <= 0 || Score - prevscore <= 9999){
+            BGM();
+        }else{
+            BGM2();
+        }
+        //jumpse = soundPool.load(this,R.raw.taa,0);
         if(MapID == 5 && HP >= 0 && Score - prevscore >= 10000){
             mapbutton.setX(2000);
             stagebutton.setX(2000);
             titlebutton.setY(-400);
+            titlebutton.setBackgroundColor(Color.rgb(50,50,255));
         }
 
         //来たステージに戻る
@@ -71,7 +104,7 @@ public class GameOver extends AppCompatActivity {
                     }
                     intent.putExtra("Scoregive",Score);
                     intent.putExtra("Clearflag",Clearflag);
-
+                    bgm.stop();
                     startActivity(intent);
 
                 }
@@ -84,7 +117,7 @@ public class GameOver extends AppCompatActivity {
                     }
                     intent.putExtra("Scoregive",Score);
                     intent.putExtra("Clearflag",Clearflag);
-
+                    bgm.stop();
                     startActivity(intent);
 
                 }
@@ -97,7 +130,7 @@ public class GameOver extends AppCompatActivity {
                     }
                     intent.putExtra("Scoregive",Score);
                     intent.putExtra("Clearflag",Clearflag);
-
+                    bgm.stop();
                     startActivity(intent);
 
                 }
@@ -110,7 +143,7 @@ public class GameOver extends AppCompatActivity {
                     }
                     intent.putExtra("Scoregive",Score);
                     intent.putExtra("Clearflag",Clearflag);
-
+                    bgm.stop();
                     startActivity(intent);
 
                 }
@@ -123,7 +156,7 @@ public class GameOver extends AppCompatActivity {
                     }
                     intent.putExtra("Scoregive",Score);
                     intent.putExtra("Clearflag",Clearflag);
-
+                    bgm.stop();
                     startActivity(intent);
 
                 }
@@ -132,17 +165,17 @@ public class GameOver extends AppCompatActivity {
         mapbutton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
 
-                    Intent intent = new Intent(getApplication(), Map.class);
-                    if(HP <= 0) {
-                        intent.putExtra("HPgive", 100);
-                    }else{
-                        intent.putExtra("HPgive",HP);
-                    }
-                    intent.putExtra("Scoregive",Score);
-                    intent.putExtra("MapID",MapID);
+                Intent intent = new Intent(getApplication(), Map.class);
+                if(HP <= 0) {
+                    intent.putExtra("HPgive", 100);
+                }else{
+                    intent.putExtra("HPgive",HP);
+                }
+                intent.putExtra("Scoregive",Score);
+                intent.putExtra("MapID",MapID);
                 intent.putExtra("Clearflag",Clearflag);
-
-                    startActivity(intent);
+                bgm.stop();
+                startActivity(intent);
 
 
             }
@@ -155,9 +188,11 @@ public class GameOver extends AppCompatActivity {
                     Intent intent = new Intent(getApplication(), Ending.class);
                     intent.putExtra("HPgive", HP);
                     intent.putExtra("Scoregive", Score);
+                    bgm.stop();
                     startActivity(intent);
                 }else {
                     Intent intent = new Intent(getApplication(), MainActivity.class);
+                    bgm.stop();
                     startActivity(intent);
                 }
             }
@@ -231,15 +266,15 @@ public class GameOver extends AppCompatActivity {
 
             if(HP <= 0) {
                 gameover.setText("Game Over!!!");
-                because.setText("かりおき\nHP:" + HP + "\n今回のScore:"+ nowscore + "\n合計Score:" + Score);
+                because.setText("ポイをつけすぎっぽい\nHP:" + HP + "\n今回のScore:"+ nowscore + "\n合計Score:" + Score);
                 stagebutton.setText("HPを回復して元のステージをやり直す");
                 mapbutton.setText("HPを回復してマップに戻る");
             }else if(Score - prevscore <10000){
                 gameover.setText("Game Over!!!");
-                because.setText("かりおき\nHP:" + HP + "\n今回のScore:"+ nowscore + "\n合計Score:" + Score);
+                because.setText("もう少し頑張りましょう\n10000点ぐらいは\nHP:" + HP + "\n今回のScore:"+ nowscore + "\n合計Score:" + Score);
             }else{
                 gameover.setText("Game Clear!!!");
-                because.setText("かりおき\nHP:" + HP + "\n今回のScore:"+ nowscore + "\n合計Score:" + Score);
+                because.setText("よくできました\nHP:" + HP + "\n今回のScore:"+ nowscore + "\n合計Score:" + Score);
             }
         }
         //Stage_5のゲームオーバーテキスト
@@ -264,6 +299,15 @@ public class GameOver extends AppCompatActivity {
             }
         }
 
+    }
+    public void BGM(){ //仮置き
+        bgm = MediaPlayer.create(this,R.raw.n74);
+
+        bgm.start();
+    }
+    public void BGM2(){
+        bgm = MediaPlayer.create(this,R.raw.n11);
+        bgm.start();
     }
 
 }
