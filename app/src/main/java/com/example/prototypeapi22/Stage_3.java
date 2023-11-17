@@ -48,6 +48,8 @@ public class Stage_3 extends AppCompatActivity {
 
     //Score
     private int score = 0;
+    //load
+    TextView load;
 
     //Handler & Timer
     private Handler handler = new Handler();
@@ -96,6 +98,8 @@ public class Stage_3 extends AppCompatActivity {
         black.setY(-80.0f);
 
         scoreLabel.setText(getString(R.string.score_label, 0));
+
+        load = findViewById(R.id.load);
     }
 
     public void changePos() {
