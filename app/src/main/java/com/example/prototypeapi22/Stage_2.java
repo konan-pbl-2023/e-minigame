@@ -682,8 +682,8 @@ public class Stage_2 extends AppCompatActivity {
                     monomovex[i] = -(rand.nextInt(20) / 5 + 1);
                     monoy[i] = rand.nextInt(700) + 200;
                     monomovey[i] = -(rand.nextInt(100));
-                    Score += 900;
-                    HP += 3;
+                    Score += 1000;
+                    HP += 4;
                     if(i == 0){
                         tst = rand.nextInt(255);
                         tst2 = rand.nextInt(255);
@@ -774,8 +774,8 @@ public class Stage_2 extends AppCompatActivity {
                     monomovex[i] = -(rand.nextInt(20) / 5 + 1);
                     monoy[i] = rand.nextInt(700) + 200;
                     monomovey[i] = -(rand.nextInt(100));
-                    Score += 900;
-                    HP += 3;
+                    Score += 1000;
+                    HP +=4;
                     if(i == 0){
                         tst = rand.nextInt(255);
                         tst2 = rand.nextInt(255);
@@ -868,8 +868,8 @@ public class Stage_2 extends AppCompatActivity {
                     monomovex[i] = -(rand.nextInt(20) / 5 + 1);
                     monoy[i] = rand.nextInt(700) + 200;
                     monomovey[i] = -(rand.nextInt(100));
-                    Score += 900;
-                    HP += 3;
+                    Score += 1000;
+                    HP += 4;
                     if(i == 0){
                         tst = rand.nextInt(255);
                         tst2 = rand.nextInt(255);
@@ -1085,7 +1085,7 @@ public class Stage_2 extends AppCompatActivity {
             load.setScaleY(2);
             load.setText("ロード中...\nしばし待たれよ!");
             timer.cancel();
-            mainbgm.stop();
+            //mainbgm.stop();
             intent.putExtra("HPgive",HP);
             intent.putExtra("Scoregive",Score);
             intent.putExtra("MapID",2);
@@ -1101,6 +1101,7 @@ public class Stage_2 extends AppCompatActivity {
                 Clearflag *= 3;
             }
             intent.putExtra("Clearflag",Clearflag);
+            mainbgm.release();
             startActivity(intent);
 
         }

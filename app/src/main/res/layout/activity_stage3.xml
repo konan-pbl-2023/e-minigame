@@ -2,20 +2,12 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/s"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity"
     android:orientation="vertical"
+    tools:context=".MainActivity"
     tools:ignore="RtlHardcoded,RtlSymmetry,ContentDescription">
-
-    <TextView
-        android:id="@+id/scoreLabel"
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:text="@string/score_label"
-        android:textSize="18sp"
-        android:paddingLeft="10dp"
-        android:gravity="center_vertical"/>
 
     <FrameLayout
         android:id="@+id/frame"
@@ -26,37 +18,80 @@
             android:id="@+id/startLabel"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_gravity="center"
             android:text="@string/start_label"
-            android:textSize="20sp"
-            android:layout_gravity="center"/>
+            android:textSize="20sp" />
 
         <ImageView
-            android:id="@+id/box"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:src="@drawable/box"
-            android:layout_gravity="center_vertical"/>
+            android:id="@+id/haikei"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:srcCompat="@drawable/syatekib" />
 
         <ImageView
             android:id="@+id/orange"
             android:layout_width="20dp"
             android:layout_height="20dp"
-            android:src="@drawable/orange"/>
+            android:src="@drawable/orange" />
 
         <ImageView
             android:id="@+id/black"
             android:layout_width="24dp"
             android:layout_height="24dp"
-            android:src="@drawable/black"/>
+            android:src="@drawable/black" />
 
         <ImageView
             android:id="@+id/pink"
             android:layout_width="16dp"
             android:layout_height="16dp"
-            android:src="@drawable/pink"/>
+            android:src="@drawable/pink" />
 
         <TextView
             android:id="@+id/load"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="TextView" />
+
+        <TextView
+            android:id="@+id/hptext"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="TextView" />
+
+        <TextView
+            android:id="@+id/scoretext"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="TextView" />
+
+        <TextView
+            android:id="@+id/timetext"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="TextView" />
+
+        <ImageView
+            android:id="@+id/box"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            app:srcCompat="@drawable/mainpbig" />
+
+        <ImageView
+            android:id="@+id/syateki"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:scaleX="0.1"
+            android:scaleY="0.1"
+            app:srcCompat="@drawable/syateki" />
+
+        <ImageView
+            android:id="@+id/wback"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:srcCompat="@android:drawable/title_bar" />
+
+        <TextView
+            android:id="@+id/setumei"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="TextView" />

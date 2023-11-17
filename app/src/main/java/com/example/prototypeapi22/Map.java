@@ -430,7 +430,7 @@ public class Map extends AppCompatActivity {
             load.setScaleY(2);
             load.setText("ロード中...\nしばし待たれよ!");
             timer.cancel();
-            mainbgm.stop();
+            mainbgm.release();
             Intent intent = new Intent(getApplication(), Stage_1.class);
 
             intent.putExtra("nomissflag",nomiss);
@@ -449,7 +449,7 @@ public class Map extends AppCompatActivity {
             load.setScaleY(2);
             load.setText("ロード中...\nしばし待たれよ!");
             timer.cancel();
-            mainbgm.stop();
+            mainbgm.release();
             Intent intent = new Intent(getApplication(), Stage_2.class);
 
             intent.putExtra("nomissflag",nomiss);
@@ -468,7 +468,7 @@ public class Map extends AppCompatActivity {
             load.setScaleY(2);
             load.setText("ロード中...\nしばし待たれよ!");
             timer.cancel();
-            mainbgm.stop();
+            mainbgm.release();
             Intent intent = new Intent(getApplication(), Stage_3.class);
 
             intent.putExtra("nomissflag",nomiss);
@@ -488,7 +488,7 @@ public class Map extends AppCompatActivity {
             load.setText("ロード中...\nしばし待たれよ!");
 
             timer.cancel();
-            mainbgm.stop();
+            mainbgm.release();
             Intent intent = new Intent(getApplication(), Stage_4.class);
 
             intent.putExtra("nomissflag",nomiss);
@@ -507,7 +507,7 @@ public class Map extends AppCompatActivity {
             load.setScaleY(2);
             load.setText("ロード中...\nしばし待たれよ!");
             timer.cancel();
-            mainbgm.stop();
+            mainbgm.release();
             Intent intent = new Intent(getApplication(), Stage_5.class);
             intent.putExtra("nomissflag",nomiss);
             intent.putExtra("debugmode",debug);

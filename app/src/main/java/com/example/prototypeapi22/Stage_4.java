@@ -574,7 +574,7 @@ public class Stage_4 extends AppCompatActivity {
                 Clearflag *= 7;
             }
             intent.putExtra("Clearflag",Clearflag);
-            mainbgm.stop();
+            mainbgm.release();
             startActivity(intent);
 
 

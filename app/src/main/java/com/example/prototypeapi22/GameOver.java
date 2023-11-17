@@ -104,7 +104,7 @@ public class GameOver extends AppCompatActivity {
                     }
                     intent.putExtra("Scoregive",Score);
                     intent.putExtra("Clearflag",Clearflag);
-                    bgm.stop();
+                    bgm.release();
                     startActivity(intent);
 
                 }
@@ -117,7 +117,7 @@ public class GameOver extends AppCompatActivity {
                     }
                     intent.putExtra("Scoregive",Score);
                     intent.putExtra("Clearflag",Clearflag);
-                    bgm.stop();
+                    bgm.release();
                     startActivity(intent);
 
                 }
@@ -130,7 +130,7 @@ public class GameOver extends AppCompatActivity {
                     }
                     intent.putExtra("Scoregive",Score);
                     intent.putExtra("Clearflag",Clearflag);
-                    bgm.stop();
+                    bgm.release();
                     startActivity(intent);
 
                 }
@@ -143,7 +143,7 @@ public class GameOver extends AppCompatActivity {
                     }
                     intent.putExtra("Scoregive",Score);
                     intent.putExtra("Clearflag",Clearflag);
-                    bgm.stop();
+                    bgm.release();
                     startActivity(intent);
 
                 }
@@ -156,7 +156,7 @@ public class GameOver extends AppCompatActivity {
                     }
                     intent.putExtra("Scoregive",Score);
                     intent.putExtra("Clearflag",Clearflag);
-                    bgm.stop();
+                    bgm.release();
                     startActivity(intent);
 
                 }
@@ -174,7 +174,7 @@ public class GameOver extends AppCompatActivity {
                 intent.putExtra("Scoregive",Score);
                 intent.putExtra("MapID",MapID);
                 intent.putExtra("Clearflag",Clearflag);
-                bgm.stop();
+                bgm.release();
                 startActivity(intent);
 
 
@@ -188,11 +188,11 @@ public class GameOver extends AppCompatActivity {
                     Intent intent = new Intent(getApplication(), Ending.class);
                     intent.putExtra("HPgive", HP);
                     intent.putExtra("Scoregive", Score);
-                    bgm.stop();
+                    bgm.release();
                     startActivity(intent);
                 }else {
                     Intent intent = new Intent(getApplication(), MainActivity.class);
-                    bgm.stop();
+                    bgm.release();
                     startActivity(intent);
                 }
             }
@@ -247,7 +247,7 @@ public class GameOver extends AppCompatActivity {
 
             if(HP <= 0) {
                 gameover.setText("Game Over!!!");
-                because.setText("\nHP:" + HP + "\n今回のScore:"+ nowscore + "\n合計Score:" + Score);
+                because.setText("とげとげ、いたい\nHP:" + HP + "\n今回のScore:"+ nowscore + "\n合計Score:" + Score);
                 stagebutton.setText("HPを回復して元のステージをやり直す");
                 mapbutton.setText("HPを回復してマップに戻る");
             }else if(Score - prevscore <10000){
