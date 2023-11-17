@@ -244,6 +244,7 @@ public class GameOver extends AppCompatActivity {
             because.setScaleX(2);
             because.setScaleY(2);
 
+
             if(HP <= 0) {
                 gameover.setText("Game Over!!!");
                 because.setText("\nHP:" + HP + "\n今回のScore:"+ nowscore + "\n合計Score:" + Score);
