@@ -32,6 +32,7 @@ public class GameOver extends AppCompatActivity {
     ImageView back;
     SoundPool soundPool;
     MediaPlayer bgm;
+    Button kakunin;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -66,6 +67,9 @@ public class GameOver extends AppCompatActivity {
         mapbutton.setTextColor(Color.rgb(0,0,0));
         stagebutton.setBackgroundColor(Color.rgb(0,0,255));
         titlebutton.setBackgroundColor(Color.rgb(255,0,0));
+        kakunin = findViewById(R.id.kakunin);
+        kakunin.setText("本当に戻りますか？");
+        kakunin.setX(3000);
         AudioAttributes audioAttributes = new AudioAttributes.Builder()
                 // USAGE_MEDIA
                 // USAGE_GAME
@@ -191,14 +195,23 @@ public class GameOver extends AppCompatActivity {
                     bgm.release();
                     startActivity(intent);
                 }else {
-                    Intent intent = new Intent(getApplication(), MainActivity.class);
-                    bgm.release();
-                    startActivity(intent);
+                    kakunin.setX(300);
+                    kakunin.setY(1572);
+                    //Intent intent = new Intent(getApplication(), MainActivity.class);
+                    //bgm.release();
+                    //startActivity(intent);
                 }
             }
         });
+        kakunin.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                Intent intent = new Intent(getApplication(), MainActivity.class);
+                bgm.release();
+                startActivity(intent);
 
+            }
 
+        });
         if(MapID == 1){
             gameover.setScaleX(4);
             gameover.setScaleY(4);
