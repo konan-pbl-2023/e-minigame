@@ -203,6 +203,7 @@ public class GameOver extends AppCompatActivity {
                 }
             }
         });
+
         kakunin.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 Intent intent = new Intent(getApplication(), MainActivity.class);
