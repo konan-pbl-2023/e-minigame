@@ -321,7 +321,7 @@ public class Stage_1 extends AppCompatActivity {
         load.setX(2000);
 
 
-        BGM();
+
         AudioAttributes audioAttributes = new AudioAttributes.Builder()
                 // USAGE_MEDIA
                 // USAGE_GAME
@@ -330,6 +330,8 @@ public class Stage_1 extends AppCompatActivity {
                 // CONTENT_TYPE_SPEECH, etc.
                 .setContentType(AudioAttributes.CONTENT_TYPE_SPEECH)
                 .build();
+        BGM();
+
         soundPool = new SoundPool.Builder()
                 .setAudioAttributes(audioAttributes)
                 // ストリーム数に応じて
@@ -923,7 +925,7 @@ public class Stage_1 extends AppCompatActivity {
             load.setScaleY(2);
             load.setText("ロード中...\nしばし待たれよ!");
             timer.cancel();
-            mainbgm.stop();
+            mainbgm.release();
             intent.putExtra("HPgive",hp);
             intent.putExtra("Scoregive",score);
             intent.putExtra("MapID",1);

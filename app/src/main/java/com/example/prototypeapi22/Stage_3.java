@@ -3,7 +3,10 @@ package com.example.prototypeapi22;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.graphics.Point;
+import android.media.AudioAttributes;
+import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.Display;
@@ -61,15 +64,59 @@ public class Stage_3 extends AppCompatActivity {
 
     //Sound
     private SoundPlayer soundPlayer;
+    int HP;
+    int Clearflag;
+    int nomiss;
 
+    int time;
+    int prevscore;
+    ImageView syateki;
+    TextView setumei;
+    ImageView wback;
+    TextView hptext;
+    TextView scoretext;
+    TextView timetext;
+    ImageView haikei;
+    MediaPlayer mainbgm;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_stage3);
 
-        soundPlayer = new SoundPlayer(this);
+        syateki = findViewById(R.id.syateki);
+        syateki.setScaleX(1.5f);
+        syateki.setScaleY(1.5f);
+        syateki.setY(-400);
+        setumei = findViewById(R.id.setumei);
+        setumei.setScaleX(1.5f);
+        setumei.setScaleY(1.5f);
+        setumei.setY(1600);
+        setumei.setX(270);
+        wback = findViewById(R.id.wback);
+        wback.setScaleY(6);
+        wback.setScaleX(20);
+        wback.setY(1720);
+        wback.setX(300);
+        wback.setColorFilter(Color.rgb(255,255,255));
+        haikei = findViewById(R.id.haikei);
 
-        scoreLabel = findViewById(R.id.scoreLabel);
+        //setumei.setTextColor(Color.rgb(255,255,255));
+        setumei.setText("射的\nりんごやもも(色の弾)に当たり\nタップしていない間高度が下がり\n" +
+                "タップしてる間高度が上がります\nとげとげに注意！！");
+
+        soundPlayer = new SoundPlayer(this);
+        View decorView = getWindow().getDecorView();
+        int uiOptions = View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
+                | View.SYSTEM_UI_FLAG_FULLSCREEN;
+        decorView.setSystemUiVisibility(uiOptions);
+        Intent intent = getIntent();
+        HP = intent.getIntExtra("HPgive", 100);
+        score = intent.getIntExtra("Scoregive",0);
+        Clearflag = intent.getIntExtra("Clearflag",1);
+        nomiss = intent.getIntExtra("nomissflag",0);
+        prevscore = score;
+
+        //scoreLabel = findViewById(R.id.scoreLabel);
         startLabel = findViewById(R.id.startLabel);
         box = findViewById(R.id.box);
         orange = findViewById(R.id.orange);
@@ -96,10 +143,43 @@ public class Stage_3 extends AppCompatActivity {
         pink.setY(-80.0f);
         black.setX(-80.0f);
         black.setY(-80.0f);
+        hptext = findViewById(R.id.hptext);
+        scoretext = findViewById(R.id.scoretext);
+        timetext = findViewById(R.id.timetext);
+        hptext.setScaleX(1.5f);
+        hptext.setScaleY(1.5f);
+        timetext.setScaleX(1.5f);
+        timetext.setScaleY(1.5f);
+        scoretext.setScaleX(1.5f);
+        scoretext.setScaleY(1.5f);
+        hptext.setX(50);
+        hptext.setY(50);
+        scoretext.setX(50);
+        scoretext.setY(150);
+        timetext.setX(500);
+        timetext.setY(50);
 
-        scoreLabel.setText(getString(R.string.score_label, 0));
+        AudioAttributes audioAttributes = new AudioAttributes.Builder()
+                // USAGE_MEDIA
+                // USAGE_GAME
+                .setUsage(AudioAttributes.USAGE_GAME)
+                // CONTENT_TYPE_MUSIC
+                // CONTENT_TYPE_SPEECH, etc.
+                .setContentType(AudioAttributes.CONTENT_TYPE_SPEECH)
+                .build();
+        BGM();
+
+
+        //scoreLabel.setText(getString(R.string.score_label, 0));
 
         load = findViewById(R.id.load);
+        load.setX(3000);
+    }
+
+    public void BGM(){
+        mainbgm = MediaPlayer.create(this,R.raw.mainbgm);
+
+        mainbgm.start();
     }
 
     public void changePos() {
@@ -149,7 +229,7 @@ public class Stage_3 extends AppCompatActivity {
 
         box.setY(boxY);
 
-        scoreLabel.setText(getString(R.string.score_label, score));
+        //scoreLabel.setText(getString(R.string.score_label, score));
     }
 
     public void hitCheck() {
@@ -159,7 +239,8 @@ public class Stage_3 extends AppCompatActivity {
 
         if (hitStatus(orangeCenterX, orangeCenterY)) {
             orangeX = -10.0f;
-            score += 10;
+            score += 750;
+            HP += 5;
             soundPlayer.playHitSound();
         }
         //Pink
@@ -168,7 +249,8 @@ public class Stage_3 extends AppCompatActivity {
 
         if (hitStatus(pinkCenterX, pinkCenterY)) {
             pinkX = -10.0f;
-            score += 30;
+            score += 2250;
+            HP += 5;
             soundPlayer.playHitSound();
         }
         //Black
@@ -176,17 +258,51 @@ public class Stage_3 extends AppCompatActivity {
         float blackCenterY = blackY + black.getHeight() / 2;
 
         if (hitStatus(blackCenterX, blackCenterY)) {
-            //Game Over!
+            HP -= 30;
+            score -= 30;
+            blackX = -10;
+        }
+        time -= 4;
+        hptext.setText("HP:"+HP);
+        scoretext.setText("Score:"  + score);
+        timetext.setText("Time:" + time);
+        hptext.setTextColor(Color.rgb(255,255,255));
+        scoretext.setTextColor(Color.rgb(255,255,255));
+        timetext.setTextColor(Color.rgb(255,255,255));
+        if(time <= 0 || HP <= 0){
             if(timer != null) {
                 timer.cancel();
                 timer = null;
                 soundPlayer.playOverSound();
             }
-            //結果画面へ
-            Intent intent = new Intent(getApplicationContext(), ResultActivity.class);
-            intent.putExtra("SCORE", score);
+            load.setX(200);
+            load.setY(1500);
+            load.setScaleX(2);
+            load.setScaleY(2);
+            load.setText("ロード中...\nしばし待たれよ!");
+            //mainbgm.stop();
+            Intent intent = new Intent(getApplicationContext(), GameOver.class);
+            intent.putExtra("Scoregive", score);
+            intent.putExtra("HPgive",HP);
+            intent.putExtra("MapID",3);
+            intent.putExtra("nomissflag",nomiss);
+            intent.putExtra("Prevscore",prevscore);
+            if(HP > 0 && score - prevscore >= 10000){
+
+            }else{
+                nomiss = 1;
+            }
+            intent.putExtra("nomissflag",nomiss);
+
+            if(Clearflag % 5 != 0 && HP > 0 && score >= 10000){
+                Clearflag *= 5;
+            }
+            intent.putExtra("Clearflag",Clearflag);
+            mainbgm.release();
             startActivity(intent);
         }
+
+
     }
 
     public boolean hitStatus(float centerX, float centerY) {
@@ -197,13 +313,22 @@ public class Stage_3 extends AppCompatActivity {
     public boolean onTouchEvent(MotionEvent event) {
         if (!start_flg) {
 
-            start_flg = true;
 
+            wback.setX(3000);
+            setumei.setX(3000);
+            syateki.setX(3000);
+            haikei.setScaleX(1.3f);
+            haikei.setScaleY(1.3f);
+            haikei.setX(90);
+            haikei.setY(200);
+            start_flg = true;
+            time = 6000;
             FrameLayout frame = findViewById(R.id.frame);
             frameHeight = frame.getHeight();
 
             boxY = box.getY();
             boxSize = box.getHeight();
+            boxY = 1000;
 
             startLabel.setVisibility(View.GONE);
 

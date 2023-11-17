@@ -187,7 +187,7 @@ public class Stage_5 extends AppCompatActivity {
         timetext = findViewById(R.id.timetext);
 
         load = findViewById(R.id.load);
-        BGM();
+
 
         back = findViewById(R.id.back);
         //back.setColorFilter(Color.rgb(255,255,255));
@@ -392,8 +392,9 @@ public class Stage_5 extends AppCompatActivity {
         soundPool = new SoundPool.Builder()
                 .setAudioAttributes(audioAttributes)
                 // ストリーム数に応じて
-                .setMaxStreams(10)
+                .setMaxStreams(100)
                 .build();
+        BGM();
         jumpse = soundPool.load(this,R.raw.taa,0);
         bulletse = soundPool.load(this,R.raw.shot,0);
         hitse = soundPool.load(this,R.raw.hitse,0);
@@ -863,7 +864,7 @@ public class Stage_5 extends AppCompatActivity {
             load.setScaleY(2);
             load.setText("ロード中...\nしばし待たれよ!");
             timer.cancel();
-            mainbgm.stop();
+            //mainbgm.stop();
             if(dragonhpnum <= 0 && bonuscnt == 0){
                 Score += 50000;
                 bonuscnt = 1;
@@ -882,6 +883,7 @@ public class Stage_5 extends AppCompatActivity {
                 Clearflag *= 11;
             }
             intent.putExtra("Clearflag",Clearflag);
+            mainbgm.release();
             startActivity(intent);
 
         }

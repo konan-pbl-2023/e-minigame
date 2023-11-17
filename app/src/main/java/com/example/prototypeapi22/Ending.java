@@ -79,8 +79,8 @@ public class Ending extends AppCompatActivity {
         HP = intent.getIntExtra("HPgive", 100);
         Score = intent.getIntExtra("Scoregive",0);
         Clearflag = intent.getIntExtra("Clearflag",1); //Clearflagに関しては受け取る意味ないと思うけど
-        //nomiss = intent.getIntExtra("nomissflag",0); //２エンド分けたかったけど明後日までに揃うんか...？
-        nomiss = 0;
+        nomiss = intent.getIntExtra("nomissflag",0); //２エンド分けたかったけど明後日までに揃うんか...？
+        //nomiss = 0;
         wback = findViewById(R.id.wback);
         sosite = findViewById(R.id.sosite);
         wback.setScaleX(100);
@@ -122,6 +122,31 @@ public class Ending extends AppCompatActivity {
         an.setX(0);
         //ここにif文を挟んでエンディング分岐簡単に！
         if(nomiss == 0) {
+            ending.setText("ノーミスゲームクリア！！\n" +
+                    "すごい！\n"+
+                    "あなたのおかげで町が綺麗になったよ！\n" +
+                    "ここまでプレイしてくれてありがとう！\n" +
+                    "\n残りHP\n\n" +
+                    HP+"\n\n"+
+                    "最終Score\n\n"+
+                    Score+"\n\n"+
+                    "スタッフ(五十音＆敬称略)\n" +
+                    "マネージャー\n" +
+                    "\n" +
+                    "山田\n\n" +
+                    "プログラマ\n" +
+                    "\n" +
+                    "陳\n" +
+                    "前田\n" +
+                    "山田\n" +
+                    "\nコンテンツ\n\n" +
+                    "井本\n" +
+                    "森井\n\n" +
+                    "スペシャルサンクス\n\n" +
+                    "新田先生\nTAの方々\n画像、音声引用元\n" +
+                    "情報システム室\n\n\n" +
+                    "おわり");
+        }else{
             ending.setText("ゲームクリア\n" +
                     "おめでとう！\n"+
                     "あなたのおかげで町が綺麗になったよ！\n" +
@@ -146,8 +171,6 @@ public class Ending extends AppCompatActivity {
                     "新田先生\nTAの方々\n画像、音声引用元\n" +
                     "情報システム室\n\n\n" +
                     "おわり");
-        }else{
-            ending.setText("こっちはノーミス失敗時");
         }
         titleButton = findViewById(R.id.titlebutton);
         titleButton.setY(3000);
@@ -159,7 +182,8 @@ public class Ending extends AppCompatActivity {
                 //intent.putExtra("HPgive",100);
                 //intent.putExtra("Scoregive",0);
                 intent.putExtra("Clearflag",Clearflag);
-                mainbgm.stop();
+                //mainbgm.stop();
+                mainbgm.release();
                 startActivity(intent);
 
             }
